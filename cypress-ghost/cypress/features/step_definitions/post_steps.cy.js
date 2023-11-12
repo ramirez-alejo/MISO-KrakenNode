@@ -14,17 +14,33 @@ When(
   }
 );
 
+When("Se modifica el título a {string}", (nuevoTitulo) => {
+  postPage.modificarTitulo(nuevoTitulo);
+});
+
 When("Se publica inmediatamente el post", ()=>{
   postPage.publicarDeInmediato();
 })
 
+When("Se navega al listado de posts", ()=>{
+  postPage.navegarAlListadoDePosts();
+});
+
+When("Se navega a la edición del post", ()=>{
+  postPage.editarElPost(postId);
+});
+
 Then("Validar que exista el postId el listado de posts con estado {string}",
   (estado) => {
     postPage.navegarAlListadoDePosts();
-    postPage.validarQueExistaElPostEnElListado(postId, estado);
+    postPage.validarQueExistaElPostEnElListadoConEstado(postId, estado);
   }
 );
 
 Then("Validar la publicación del post", ()=>{
   postPage.validarPublicacionPost();
 })
+
+Then("Validar que el título del post es {string}", (titulo) =>{
+  postPage.validarTituloEnListadoDePosts(postId, titulo);
+});

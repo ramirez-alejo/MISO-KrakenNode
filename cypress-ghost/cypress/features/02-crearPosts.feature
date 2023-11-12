@@ -10,4 +10,12 @@ Feature: Crear un nuevo post
         When Se crea post "Titulo de post" desde el acceso directo de nuevo post
         And Se publica inmediatamente el post
         Then Validar la publicación del post
+
+    Scenario: Editar un post
+        Given Se autentica el usuario
+        When Se crea post "Titulo de post" desde el acceso directo de nuevo post
+        And Se navega al listado de posts
+        And Se navega a la edición del post
+        And Se modifica el título a "Este es el nuevo título del post"
+        Then Validar que el título del post es "Este es el nuevo título del post"
         
