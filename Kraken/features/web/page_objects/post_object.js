@@ -37,6 +37,7 @@ class Post {
       element = await this.driver.$('[data-test-button="publish-preview"]');
       await element.click();
 
+
     }
 
     async createPost(title, content)
@@ -88,7 +89,13 @@ class Post {
       //look for the element with x path //li[contains(a, 'Post_1')]
       let element = await this.driver.$('//li[contains(a, "' + title + '")]');
       await element.waitForDisplayed();
-   
+
+      // click on button with title="Close"
+      element = await this.driver.$('[title="Close"]');   
+      await element.click();
+
+      // navigate back to the relative path /dashboard
+      await this.driver.url(this.baseUrl + 'ghost/#/dashboard');
     }
 
     async EditPost(title, newTitle, newContent) {
@@ -113,25 +120,9 @@ class Post {
       //type the contentMarkdown 
       await element.keys(newContent);
 
-      // get the element with  class gh-publish-trigger
-      element = await this.driver.$('.gh-publish-trigger');
+      // get the element with  class data-test-task-button-state="idle"
+      element = await this.driver.$('[data-test-task-button-state="idle"]');
       await element.click();
-
-      // We need a little wait here to make sure the button is clickable
-      await this.driver.pause(1000);
-
-      // click on the continue button with xpath //button[contains(span, 'Continue, final review →')]
-      element = await this.driver.$('//button[contains(span, "Continue")]');
-      element.waitForDisplayed();
-      await element.click();
-
-      //click on publish post data-test-button="confirm-publish"
-      element = await this.driver.$('[data-test-button="confirm-publish"]');
-      await element.click();
-
-     // look for the element with class data-test-publish-flow="complete"
-      element = await this.driver.$('[data-test-publish-flow="complete"]');
-      await element.waitForDisplayed();
 
       // navigate back to the relative path /dashboard
       await this.driver.url(this.baseUrl + 'ghost/#/dashboard');
@@ -163,6 +154,33 @@ class Post {
       //expect a 404 error
       let element = await this.driver.$('h1=404');
       await element.waitForDisplayed();
+    }
+
+    async DeletePost(title) {
+      // Navigate to the path /ghost/#/posts?search=title
+      await this.driver.url(this.baseUrl + 'ghost/#/posts?search=' + title);
+
+      //look for the element with x path //li[contains(a, 'Post_1')]
+      let element = await this.driver.$('//li[contains(a, "' + title + '")]');
+      await element.waitForDisplayed();
+      await element.click();
+
+      //look for the element with class data-test-psm-trigger
+      element = await this.driver.$('[data-test-psm-trigger]');
+      await element.click();
+
+      // Look for a button inside a div with class settings-menu-delete-button
+      element = await this.driver.$('.settings-menu-delete-button');
+      await element.waitForDisplayed();
+      await element.click();
+
+      // confirm click on element with class gh-btn gh-btn-red gh-btn-icon
+      element = await this.driver.$('.gh-btn.gh-btn-red.gh-btn-icon');
+      await element.click();
+
+      // navigate back to the relative path /dashboard
+      await this.driver.url(this.baseUrl + 'ghost/#/dashboard');
+
     }
 
   }
