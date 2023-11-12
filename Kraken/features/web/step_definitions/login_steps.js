@@ -7,4 +7,3 @@ Given('I login to the Ghost application with username {string} and password {str
     const login = new LoginPage(this.driver, host);
     return await login.login(username, password);
   });
-

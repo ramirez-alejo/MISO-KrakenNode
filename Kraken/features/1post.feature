@@ -1,15 +1,14 @@
 Feature: Posts
 
-@user1 @web
-Scenario: Creacion de draft
-  Given I login to the Ghost application with username "<LoginUsername>" and password "<LoginPassword>" on "<Host>"
-  When I create a new post draft with number "1" and content "Esto es una prueba automatizada" on "<Host>"
-  Then I wait
-  Then I verify the post draft was created with number "1" on "<Host>"
 
-@user2 @web
-Scenario: Creacion
+
+@user4 @web
+Scenario: Despublicar post
   Given I login to the Ghost application with username "<LoginUsername>" and password "<LoginPassword>" on "<Host>"
-  When I create a new post number "2" and content "Esto es una prueba automatizada" on "<Host>"
+  When I create a new post number "4" and content "Esto es una prueba automatizada" on "<Host>"
   Then I wait
-  Then I verify the post was created with number "2" on "<Host>"
+  Then I verify the post was created with number "4" on "<Host>"
+  Then I unpublish the post with number "4" on "<Host>"
+  Then I wait
+  Then I check the post with number "4" is not published on "<Host>"
+

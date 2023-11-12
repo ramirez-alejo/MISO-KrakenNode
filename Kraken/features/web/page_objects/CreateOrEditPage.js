@@ -22,7 +22,7 @@ class Page {
       await element.click();
 
       //input the title into the textarea data-test-editor-title-input=""
-      element = await this.driver.$('[data-test-editor-title-input]');
+      elementContent = await this.driver.$(".koenig-editor__editor");
       await element.setValue(pageTitle);
 
       //click on the div with role="textbox"

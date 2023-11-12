@@ -29,3 +29,22 @@ Then('I verify the post was created with number {string} on {string}', async fun
     return await createOrEditPost.OpenAndCheck(title);
   });
 
+Then('I edit the existing post with number {string} to have the new title {string} and new content {string} on {string}', async function (number, newNumber, newContent, host) {
+    const title = 'Post_' + number;
+    const newTitle = 'Post_' + newNumber;
+    const createOrEditPost = new post(this.driver, host);
+    return await createOrEditPost.EditPost(title, newTitle, newContent);
+  });
+
+Then ('I unpublish the post with number {string} on {string}', async function (number, host) {
+    const title = 'Post_' + number;
+    const createOrEditPost = new post(this.driver, host);
+    return await createOrEditPost.UnPublishPost(title);
+  });
+
+Then ('I check the post with number {string} is not published on {string}', async function (number, host) {
+    const title = 'Post_' + number;
+    const createOrEditPost = new post(this.driver, host);
+    return await createOrEditPost.CheckIsNotAvailable(title);
+  });
+
