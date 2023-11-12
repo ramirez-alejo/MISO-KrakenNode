@@ -1,20 +1,36 @@
 class LoginPage {
-    constructor(driver) {
+    constructor(driver, host) {
     this.driver = driver;
+    this.baseUrl = 'http://localhost:2368/';
+
+    if (host && host !== '<Host>') {
+      this.baseUrl = host;
+    }
     }
     async login(username, password) {
+      
+      let user = 'grupo16@pruebas.com';
+      if (username && username !== '<LoginUsername>') {
+        user = username;
+      }
+
+      let pass = 'VssK5GQ776f2u$r%';
+      if (password && password !== '<LoginPassword>') {
+        pass = password;
+      }
+
       // First navitage to the login page
-      await this.driver.url('http://localhost:2368/ghost/');
-      // Enter the email address
-      let element = await this.driver.$('#identification');
-      await element.setValue(username);
+      await this.driver.url(this.baseUrl + 'ghost/');
+      // find element #identification
+      let userElement = await this.driver.$('#identification');
+      await userElement.setValue(user);
       // Enter the password
-      element = await this.driver.$('#password');
-      await element.setValue(password);
+      let passElement = await this.driver.$('#password');
+      await passElement.setValue(pass);
   
       // Click the login button
-      element = await this.driver.$('#ember5');
-      await element.click();
+      let loginElement = await this.driver.$('#ember5');
+      await loginElement.click();
 
       // Expect to see a div with the class gh-dashboard
       await this.driver.$('.gh-nav-list.gh-nav-manage').waitForDisplayed();

@@ -1,7 +1,12 @@
 class Page {
-    constructor(driver) {
+    constructor(driver, host) {
     this.driver = driver;
     this.baseUrl = 'http://localhost:2368/';
+
+    if (host && host !== '<Host>') {
+      this.baseUrl = host;
+    }
+
     }
     async createPage(pageTitle, contentMarkdown) {
       
