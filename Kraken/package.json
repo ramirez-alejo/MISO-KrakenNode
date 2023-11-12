@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "kraken": "kraken-node"
+    "kraken": "kraken-node",
+    "start": "kraken-node run"
   },
   "dependencies": {
     "chai": "^4.3.10",
