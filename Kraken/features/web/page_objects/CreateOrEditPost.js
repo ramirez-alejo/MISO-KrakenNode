@@ -49,8 +49,8 @@ class Post {
       await element.click();
 
 
-      // click on the continue button with class data-test-button="continue"
-      element = await this.driver.$('[data-test-button="continue"]');
+      // click on the continue button with xpath //button[contains(span, 'Continue, final review →')]
+      element = await this.driver.$('//button[contains(span, "Continue")]');
       element.waitForDisplayed();
       await element.click();
 
