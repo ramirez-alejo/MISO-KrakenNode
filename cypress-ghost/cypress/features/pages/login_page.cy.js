@@ -14,7 +14,6 @@ class loginPage {
   };
 
   verificarIngreso = () => {
-    cy.wait(1000);
     cy.url().should("contains", "/#/dashboard");
   };
 

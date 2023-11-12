@@ -2,11 +2,17 @@ class postPage{
 
     formulario = {
         tituloPost: () => cy.get('[placeholder="Post title"]'),
-        accesoDirectoNuevoPost: () => cy.get('[title="New post"]')
+        accesoDirectoNuevoPost: () => cy.get('[data-test-nav="new-story"]')
+
+     
     }
 
     crearPostDesdeMenu = () => {
-        cy.get
-    }
+        this.formulario.accesoDirectoNuevoPost().should('be.visible').click();
+    };
+
+    
 
 }
+
+export default new postPage();

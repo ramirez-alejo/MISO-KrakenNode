@@ -10,6 +10,7 @@ When("Ingresa usuario: {string} y clave: {string}", (usuario, clave) => {
 });
 
 Given("Se autentica el usuario", () => {
+  cy.visit("/");
   loginPage.autenticar("test@test.tt", "1234567890a.");
 });
 
