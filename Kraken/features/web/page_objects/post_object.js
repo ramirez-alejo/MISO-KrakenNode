@@ -145,6 +145,10 @@ class Post {
       //click on the unpublish button data-test-button="revert-to-draft"
       element = await this.driver.$('[data-test-button="revert-to-draft"]');
       await element.click();
+
+      // We need a little wait here to make sure the button is clickable
+      await this.driver.pause(1000);
+
     }
 
     async CheckIsNotAvailable(title) {
