@@ -83,11 +83,10 @@ class Post {
       // Navigate to the path /ghost/#/posts?search=title
       await this.driver.url(this.baseUrl + 'ghost/#/posts?search=' + title);
 
-      //look for the element with class posts-list
-      let element = await this.driver.$('.posts-list');
+      //look for the element with x path //li[contains(a, 'Post_1')]
+      let element = await this.driver.$('//li[contains(a, "' + title + '")]');
       await element.waitForDisplayed();
-      let html = await element.getHTML(true);
-      expect(html).to.include(title);      
+   
     }
   }
   module.exports = Post;
