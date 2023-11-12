@@ -27,19 +27,20 @@ When("Se navega al listado de posts", ()=>{
 });
 
 When("Se navega a la edición del post", ()=>{
-  postPage.editarElPost(postId);
+  postPage.editarPostDesdeListado(postId);
 });
+
+
+When("Se despublica el post", ()=>{
+  postPage.despublicarPost(postId);
+})
 
 Then("Validar que exista el postId el listado de posts con estado {string}",
   (estado) => {
-    postPage.navegarAlListadoDePosts();
     postPage.validarQueExistaElPostEnElListadoConEstado(postId, estado);
   }
 );
 
-Then("Validar la publicación del post", ()=>{
-  postPage.validarPublicacionPost();
-})
 
 Then("Validar que el título del post es {string}", (titulo) =>{
   postPage.validarTituloEnListadoDePosts(postId, titulo);
