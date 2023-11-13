@@ -9,5 +9,3 @@ When('I enter password {string}', async function (password) {
     let element = await this.driver.$('#pass');
     return await element.setValue(password);
 });
-
-

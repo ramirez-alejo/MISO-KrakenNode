@@ -1,9 +1,5 @@
 {
-  "LoginUsername": "a.ramirez1123@uniandes.edu.co",
+  "LoginUsername": "grupo16@pruebas.com",
   "LoginPassword": "VssK5GQ776f2u$r%",
-  "@user1": {
-    "LoginUsername": "a.ramirez1123@uniandes.edu.co",
-    "LoginPassword": "VssK5GQ776f2u$r%"
-  },
-  "@user2": {}
+  "Host": "http://localhost:2368/ghost/"
 }
