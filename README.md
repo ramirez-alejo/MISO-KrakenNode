@@ -107,3 +107,33 @@ Para ejecutar Kraken use el comando: npm run kraken run
 Configuración:
 Actualizar el archivo properties.json con el host, usuario y contraseña para Ghost.
 
+
+-------
+
+# Cypress:
+
+## Instalar Ghost usando docker:
+  
+1. Correr el siguiente comando con docker instalado en la máquina
+```
+docker run -d --name ghost5-68 -e NODE_ENV=development -e url=http://localhost:2368 -p 2368:2368 ghost:5.68.0
+```
+2. navegar a:
+```
+http://localhost:2368/ghost
+```
+3. En Site title: ingresar cualquier nombre del sitio.
+4. En Full name: ingresar cualqueir nombre.
+5. En email address: grupo16@pruebas.com
+6. En password: VssK5GQ776f2u$r%
+
+## Para correr el proyecto de pruebas
+1. Usar la versión 18.18.0 de Node.Js 
+2. Ingresar a la carpeta cypress-ghost
+3. npm install
+4. cypress open
+5. En la aplicación web de cypress escoger E2E Testing
+6. Escoja el navegador de su preferencia en el siguietne menú
+7. Abra el menú Specs
+8. Encontrará el listado de lso features implementados
+9. Ingrese a cada feature y ejecute las pruebas.
