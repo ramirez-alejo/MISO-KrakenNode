@@ -79,8 +79,9 @@ class postPage {
     this.editarPostDesdeListado(postId);
     this.formulario.botonDespublicar().should("be.visible").click();
     this.formulario.confirmacionDeDespublicacion().should("be.visible");
-    this.esperarAQueActualiceElPostEnBaseDeDatos();
+    cy.wait(2000);
     this.formulario.botonConvertirADraft().should("exist").click();
+    
     this.navegarAlListadoDePosts();
   }
 
