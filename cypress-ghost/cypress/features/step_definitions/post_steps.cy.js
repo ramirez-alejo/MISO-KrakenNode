@@ -26,12 +26,12 @@ When("Se navega al listado de posts", ()=>{
 });
 
 When("Se navega a la edición del post", ()=>{
-  postPage.editarPostDesdeListado(postId);
+  postPage.editarPostDesdeListado(postId, 'post');
 });
 
 
 When("Se despublica el post", ()=>{
-  postPage.despublicarPost(postId);
+  postPage.despublicarPost(postId, 'post');
 })
 
 When("Se abre el panel de configuración del post", ()=>{

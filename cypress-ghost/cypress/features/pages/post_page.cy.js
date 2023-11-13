@@ -1,5 +1,5 @@
 class postPage {
-  formulario = {
+  elementos = {
     tituloPost: () => cy.get('[placeholder="Post title"]'),
     accesoDirectoNuevoPost: () => cy.get('[data-test-nav="new-story"]'),
     tituloPost: () => cy.get("[data-test-editor-title-input]"),
@@ -26,14 +26,14 @@ class postPage {
   };
 
   crearPostDesdeMenu = (titulo) => {
-    this.formulario.accesoDirectoNuevoPost().should("be.visible").click();
-    this.formulario.tituloPost().should("exist").type(titulo);
-    this.formulario.contenidoPost().should("exist").type("Contenido del post");
+    this.elementos.accesoDirectoNuevoPost().should("be.visible").click();
+    this.elementos.tituloPost().should("exist").type(titulo);
+    this.elementos.contenidoPost().should("exist").type("Contenido del post");
   };
 
   modificarTitulo = (nuevoTitulo) => {
-    this.formulario.tituloPost().should("exist").clear().type(nuevoTitulo);
-    this.formulario
+    this.elementos.tituloPost().should("exist").clear().type(nuevoTitulo);
+    this.elementos
       .contenidoPost()
       .should("exist")
       .clear()
@@ -42,7 +42,7 @@ class postPage {
   };
 
   navegarAlListadoDePosts = () => {
-    this.formulario.irAlListadoDePosts().should("be.visible").click();
+    this.elementos.irAlListadoDePosts().should("be.visible").click();
   };
 
   esperarAQueActualiceElPostEnBaseDeDatos = () => {
@@ -67,19 +67,18 @@ class postPage {
   };
 
   publicarDeInmediato() {
-    this.formulario.botonPublicar().should("be.visible").click();
-    this.formulario.botonContinuarPublicacion().should("be.visible").click();
-    this.formulario.botonConfirmarPublicacion().should("be.visible").click();
-    this.formulario.botonCerrarPublicacion().should("exist").click();
-    this.navegarAlListadoDePosts();
+    this.elementos.botonPublicar().should("be.visible").click();
+    this.elementos.botonContinuarPublicacion().should("be.visible").click();
+    this.elementos.botonConfirmarPublicacion().should("be.visible").click();
+    this.elementos.botonCerrarPublicacion().should("exist").click();
   }
 
-  despublicarPost(postId) {
-    this.editarPostDesdeListado(postId);
-    this.formulario.botonDespublicar().should("be.visible").click();
-    this.formulario.confirmacionDeDespublicacion().should("be.visible");
+  despublicarPost(postId, tipo) {
+    // this.editarPostDesdeListado(postId, tipo);
+    this.elementos.botonDespublicar().should("be.visible").click();
+    this.elementos.confirmacionDeDespublicacion().should("be.visible");
     cy.wait(3000);
-    this.formulario.botonConvertirADraft().should("exist").click();
+    this.elementos.botonConvertirADraft().should("exist").click();
     
     this.navegarAlListadoDePosts();
   }
@@ -102,8 +101,8 @@ class postPage {
     cy.get(`[data-test-post-id="${postId}"]`).should('not.exist');
   }
 
-  editarPostDesdeListado(postId) {
-    cy.get(`a[href="#/editor/post/${postId}/"]`).first().click();
+  editarPostDesdeListado(postId, tipo) {
+    cy.get(`a[href="#/editor/${tipo}/${postId}/"]`).first().click();
   }
 
   abrirConfiguracionPost() {
@@ -111,8 +110,8 @@ class postPage {
   }
 
   eliminarPost() {
-    this.formulario.botonEliminar().click();
-    this.formulario.botonConfirmacionEliminar().should("be.visible").click();
+    this.elementos.botonEliminar().click();
+    this.elementos.botonConfirmacionEliminar().should("be.visible").click();
   }
 }
 
