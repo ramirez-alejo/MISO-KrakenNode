@@ -26,4 +26,13 @@ Feature: Administrar los posts
         And Se publica inmediatamente el post
         And Se despublica el post
         Then Validar que exista el postId el listado de posts con estado "Draft"
+
+    Scenario: Eliminar un post
+        Given Se autentica el usuario
+        When Se crea post "Este post lo vamos a eliminar" desde el acceso directo de nuevo post
+        And Se navega al listado de posts
+        And Se navega a la edición del post
+        And Se abre el panel de configuración del post
+        And Eliminar el post
+        Then Validar que el post no existe dentro del listado
         

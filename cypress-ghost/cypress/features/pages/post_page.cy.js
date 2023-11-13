@@ -1,4 +1,5 @@
 class postPage {
+  postsURL = '/ghost/#/posts';
   formulario = {
     tituloPost: () => cy.get('[placeholder="Post title"]'),
     accesoDirectoNuevoPost: () => cy.get('[data-test-nav="new-story"]'),
@@ -13,10 +14,16 @@ class postPage {
     botonContinuarPublicacion: () => cy.get('[data-test-button="continue"]'),
     botonConfirmarPublicacion: () =>
       cy.get('[data-test-button="confirm-publish"]'),
+    botonCerrarPublicacion: () =>
+      cy.get('button[data-test-button="close-publish-flow"]'),
     confirmacionDePublicacion: () =>
       cy.get('[data-test-publish-flow="complete"]'),
-    confirmacionDeDespublicacion: () =>
-      cy.get('[data-test-update-flow-title]'),
+    confirmacionDeDespublicacion: () => cy.get("[data-test-update-flow-title]"),
+    botonConvertirADraft: () =>
+      cy.get('button[data-test-button="revert-to-draft"]'),
+
+    botonEliminar: () => cy.get(".settings-menu-delete-button button"),
+    botonConfirmacionEliminar: () => cy.get('button[id^="ember"]'),
   };
 
   crearPostDesdeMenu = (titulo) => {
@@ -47,9 +54,11 @@ class postPage {
   };
 
   obtenerElIdDelPost = () => {
-    return this.esperarAQueActualiceElPostEnBaseDeDatos().then((interception) => {
-      return interception.request.url.match(/\/admin\/posts\/([^/]+)/)[1];
-    });
+    return this.esperarAQueActualiceElPostEnBaseDeDatos().then(
+      (interception) => {
+        return interception.request.url.match(/\/admin\/posts\/([^/]+)/)[1];
+      }
+    );
   };
 
   navegarAlListadoDespuesDeGuardado = () => {
@@ -58,27 +67,22 @@ class postPage {
     });
   };
 
-  
-
   publicarDeInmediato() {
     this.formulario.botonPublicar().should("be.visible").click();
     this.formulario.botonContinuarPublicacion().should("be.visible").click();
     this.formulario.botonConfirmarPublicacion().should("be.visible").click();
-    cy.get('button[data-test-button="close-publish-flow"]').should('exist').click();
+    this.formulario.botonCerrarPublicacion().should("exist").click();
     this.navegarAlListadoDePosts();
-
   }
 
-  despublicarPost(postId){
-    this.editarPostDesdeListado(postId)
-    this.formulario.botonDespublicar().should('be.visible').click();
+  despublicarPost(postId) {
+    this.editarPostDesdeListado(postId);
+    this.formulario.botonDespublicar().should("be.visible").click();
     this.formulario.confirmacionDeDespublicacion().should("be.visible");
-    cy.get('button[data-test-button="revert-to-draft"]').should('exist').click();
     this.esperarAQueActualiceElPostEnBaseDeDatos();
+    this.formulario.botonConvertirADraft().should("exist").click();
     this.navegarAlListadoDePosts();
-
   }
-
 
   validarQueExistaElPostEnElListadoConEstado(postId, estado) {
     cy.get(`[data-test-post-id="${postId}"]`)
@@ -94,10 +98,22 @@ class postPage {
       .should("contain", titulo);
   }
 
+  validarQueElPostNoEstaEnElListado(postId){
+    cy.get(`[data-test-post-id="${postId}"]`).should('not.exist');
+  }
+
   editarPostDesdeListado(postId) {
     cy.get(`a[href="#/editor/post/${postId}/"]`).first().click();
   }
 
+  abrirConfiguracionPost() {
+    cy.get("button[data-test-psm-trigger]").should("exist").click();
+  }
+
+  eliminarPost() {
+    this.formulario.botonEliminar().click();
+    this.formulario.botonConfirmacionEliminar().should("be.visible").click();
+  }
 }
 
 export default new postPage();

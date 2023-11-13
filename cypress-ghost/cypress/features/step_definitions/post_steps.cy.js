@@ -35,11 +35,23 @@ When("Se despublica el post", ()=>{
   postPage.despublicarPost(postId);
 })
 
+When("Se abre el panel de configuración del post", ()=>{
+  postPage.abrirConfiguracionPost();
+});
+
+When("Eliminar el post", ()=>{
+  postPage.eliminarPost();
+});
+
 Then("Validar que exista el postId el listado de posts con estado {string}",
   (estado) => {
     postPage.validarQueExistaElPostEnElListadoConEstado(postId, estado);
   }
 );
+
+Then("Validar que el post no existe dentro del listado", ()=>{
+  postPage.validarQueElPostNoEstaEnElListado(postId);
+})
 
 
 Then("Validar que el título del post es {string}", (titulo) =>{
