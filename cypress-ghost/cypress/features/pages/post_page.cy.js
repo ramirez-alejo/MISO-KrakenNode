@@ -73,8 +73,8 @@ class postPage {
     this.elementos.botonCerrarPublicacion().should("exist").click();
   }
 
-  despublicarPost(postId) {
-    this.editarPostDesdeListado(postId);
+  despublicarPost(postId, tipo) {
+    // this.editarPostDesdeListado(postId, tipo);
     this.elementos.botonDespublicar().should("be.visible").click();
     this.elementos.confirmacionDeDespublicacion().should("be.visible");
     cy.wait(3000);
@@ -101,8 +101,8 @@ class postPage {
     cy.get(`[data-test-post-id="${postId}"]`).should('not.exist');
   }
 
-  editarPostDesdeListado(postId) {
-    cy.get(`a[href="#/editor/post/${postId}/"]`).first().click();
+  editarPostDesdeListado(postId, tipo) {
+    cy.get(`a[href="#/editor/${tipo}/${postId}/"]`).first().click();
   }
 
   abrirConfiguracionPost() {

@@ -1,5 +1,6 @@
 import { Given, When, And, Then } from "cypress-cucumber-preprocessor/steps";
 const pagePage = require("../pages/page_page.cy");
+const postPage = require("../pages/post_page.cy");
 
 let pageId;
 
@@ -22,6 +23,10 @@ When("Se navega a la edición del page", ()=>{
   When("Se modifica el título del page a {string}", (nuevoTitulo) => {
     pagePage.modificarTitulo(nuevoTitulo);
   });
+
+  When("Se despublica el page", ()=>{
+    pagePage.despublicarPage();
+  })
 
 Then("Validar que exista la página en el listado con estado {string}", (estado) =>{
     pagePage.validarQueExistaElPageEnElListadoConEstado(pageId, estado);

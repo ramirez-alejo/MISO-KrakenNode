@@ -8,6 +8,11 @@ class pagePage {
         'div.kg-prose[contenteditable="true"][role="textbox"][data-lexical-editor="true"]'
       ),
     volverAPaginas: () => cy.get('a[data-test-link="pages"]'),
+    botonDespublicar: () => cy.get('[data-test-button="update-flow"]'),
+    confirmacionDeDespublicacion: () => cy.get("[data-test-update-flow-title]"),
+    botonConvertirADraft: () =>
+      cy.get('button[data-test-button="revert-to-draft"]'),
+
   };
 
   navegarAPages = () => {
@@ -72,6 +77,15 @@ class pagePage {
       .should("exist")
       .find(`h3`)
       .should("contain", titulo);
+  }
+
+  despublicarPage() {
+    this.elementos.botonDespublicar().should("be.visible").click();
+    this.elementos.confirmacionDeDespublicacion().should("be.visible");
+    cy.wait(3000);
+    this.elementos.botonConvertirADraft().should("exist").click();
+    
+    this.elementos.volverAPaginas();
   }
 
 

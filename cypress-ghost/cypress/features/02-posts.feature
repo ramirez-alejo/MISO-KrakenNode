@@ -26,6 +26,7 @@ Feature: Administrar los posts
         When Se crea post "Este post lo publicamos y lo despublicamos" desde el acceso directo de nuevo post
         And Se publica inmediatamente el post
         And Se navega al listado de posts
+        And Se navega a la edición del post
         And Se despublica el post
         Then Validar que exista el postId el listado de posts con estado "Draft"
 
