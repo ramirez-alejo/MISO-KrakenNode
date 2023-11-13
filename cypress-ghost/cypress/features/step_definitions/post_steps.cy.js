@@ -1,6 +1,6 @@
 import { Given, When, And, Then } from "cypress-cucumber-preprocessor/steps";
 const postPage = require("../pages/post_page.cy");
-const memberSitePage = require("../pages/member_site_page.cy");
+
 
 let postId;
 
