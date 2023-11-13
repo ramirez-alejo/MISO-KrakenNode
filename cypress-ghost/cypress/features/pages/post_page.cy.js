@@ -71,7 +71,7 @@ class postPage {
     this.elementos.botonContinuarPublicacion().should("be.visible").click();
     this.elementos.botonConfirmarPublicacion().should("be.visible").click();
     this.elementos.botonCerrarPublicacion().should("exist").click();
-    this.navegarAlListadoDePosts();
+    // this.navegarAlListadoDePosts();
   }
 
   despublicarPost(postId) {
