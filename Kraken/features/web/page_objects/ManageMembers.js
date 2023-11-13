@@ -10,21 +10,43 @@ class Member extends GhostPage {
     }
 
     async createMember(name, email, label, note) {
-        const botonNuevoMiembro = this.driver.$('[data-test-new-member-button]');
-        await botonNuevoMiembro.click();
-
+        await this.clickElement('[data-test-new-member-button]');
         await this.setName(name);
-
         await this.setEmail(email);
-
         await this.setNote(note);
-        
-        const botonGuardar = this.driver.$('[data-test-button="save"]');
-        await botonGuardar.click();        
+        await this.clickElement('[data-test-button="save"]');
+
+        // delay to ensure the create operation
+        await this.driver.waitUntil(async () => {
+            return (await this.driver.getUrl()).includes('new') === false
+          }, {
+            timeout: 5000,
+            timeoutMsg: 'expected text to be different after 5s'
+          });
+        const memberUrl = await this.driver.getUrl();
+        return memberUrl.substring(memberUrl.lastIndexOf('/') + 1);
+    }
+
+    async selectMemberFromList(name) {
+        await this.clickElement(`h3=${name}`);
+    }
+
+    async removeMember() {
+        await this.clickElement('[data-test-button="member-actions"]');
+        await this.clickElement('[data-test-button="delete-member"]');
+        await this.clickElement('[data-test-button="confirm"]');
+    }
+
+    async impersonateMember() {
+        await this.clickElement('[data-test-button="member-actions"]');
+        await this.clickElement('[data-test-button="impersonate"]');
+        const urlElement = await this.driver.$('[data-test-input="member-signin-url"]');
+        const url = await urlElement.getValue();
+        await this.driver.url(url);
     }
 
     async isInMembersList(name) {
-        return await this.driver.$('[data-test-list="members-list-item"]').$(`h3.gh-members-list-name=${name}`).isExisting();        
+        return await this.driver.$(`h3=${name}`).isExisting();
     }
 
     async setNote(note) {
@@ -36,12 +58,17 @@ class Member extends GhostPage {
     }
 
     async setName(name) {
-        await this.setField('[data-test-input="member-name"]', name);        
+        await this.setField('[data-test-input="member-name"]', name);
     }
 
     async setField(selector, value) {
-        const element = this.driver.$(selector);
+        const element = await this.driver.$(selector);
         await element.setValue(value);
+    }
+
+    async clickElement(selector) {
+        const element = await this.driver.$(selector);
+        await element.click();
     }
 }
 
