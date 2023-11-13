@@ -1,11 +1,11 @@
-class LoginPage {
-  constructor(driver, host) {
-    this.driver = driver;
-    this.baseUrl = host;
+const GhostPage = require('./GhostPage');
+class LoginPage extends GhostPage {
+  constructor(driver) {
+    super(driver);
   }
   async login(username, password) {
     // First navitage to the login page
-    await this.driver.url(this.baseUrl + 'ghost/');
+    await this.open();
     // find element #identification
     let userElement = await this.driver.$('#identification');
     await userElement.setValue(username);
