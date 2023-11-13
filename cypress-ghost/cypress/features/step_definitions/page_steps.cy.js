@@ -15,6 +15,19 @@ When("Se navega al listado de páginas", ()=>{
     pagePage.devolverAListadoPaginas();
 });
 
+When("Se navega a la edición del page", ()=>{
+    pagePage.editarPageDesdeListado(pageId);
+  });
+
+  When("Se modifica el título del page a {string}", (nuevoTitulo) => {
+    pagePage.modificarTitulo(nuevoTitulo);
+  });
+
 Then("Validar que exista la página en el listado con estado {string}", (estado) =>{
     pagePage.validarQueExistaElPageEnElListadoConEstado(pageId, estado);
 });
+
+
+Then("Validar que el título del page es {string}", (titulo) =>{
+    pagePage.validarTituloEnListadoDePages(pageId, titulo);
+  });
