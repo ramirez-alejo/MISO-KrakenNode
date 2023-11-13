@@ -1,5 +1,4 @@
 class postPage {
-  postsURL = '/ghost/#/posts';
   formulario = {
     tituloPost: () => cy.get('[placeholder="Post title"]'),
     accesoDirectoNuevoPost: () => cy.get('[data-test-nav="new-story"]'),
