@@ -23,15 +23,15 @@ class Post {
       await element.click();
 
       //input the title into the textarea data-test-editor-title-input=""
-      element = await this.driver.$(".gh-editor-title.ember-text-area.gh-input.ember-view");
+      element = await this.driver.$("[data-test-editor-title-input]");
       await element.setValue(title);
 
       //click on the div with role="textbox"
-      element = await this.driver.$('[role="textbox"]');
+      element = await this.driver.$('[data-koenig-dnd-droppable="true"]');
       await element.click();
 
       //type the contentMarkdown 
-      await element.keys(content);
+      await element.setValue(content);
 
       // click on the preview button data-test-button="publish-preview"
       element = await this.driver.$('[data-test-button="publish-preview"]');

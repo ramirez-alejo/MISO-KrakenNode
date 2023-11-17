@@ -3,6 +3,8 @@ const { exec } = require('child_process')
 const util = require('util')
 const execAsync = util.promisify(exec)
 const path = require('path')
+const { stdout } = require('process')
+const chalk = require('chalk');
 
 const getFeatureFilePaths = async (dir, paths = []) => {
     const featuresDir = await fs.opendir(dir);
@@ -32,30 +34,37 @@ const removeFeaturesFromFolder = async (path) => {
 
 }
 
+const writeToConsole = (msg) => {
+    stdout.clearLine();
+    stdout.cursorTo(0);
+    stdout.write('  ' + msg)
+}
+
 const execFeatures = async (featuresPath, krakenFeaturesPath) => {
-
+    console.log('Eliminando escenarios de la carpeta "%s"', krakenFeaturesPath)
     await removeFeaturesFromFolder(krakenFeaturesPath);
-
+    console.log('Obteniendo escenarios a ejecutar de la carpeta "%s"', featuresPath)
     const featureFilePaths = await getFeatureFilePaths(featuresPath)
-
+    console.log('"%d" escenarios encontrados', featureFilePaths.length)
     for (const filePath of featureFilePaths) {
-
-        const featurePath = krakenFeaturesPath + path.basename(filePath)
-        console.log('Inicia copia feature', filePath)
+        const featureName = path.basename(filePath)
+        writeToConsole(`Escenario ${featureName}`)
+        const featurePath = krakenFeaturesPath + '/' + featureName
+        writeToConsole(`Escenario ${featureName} - Copiando archivo`)
         await fs.copyFile(filePath, featurePath)
-        console.log('Inicia ejecución feature', filePath)
+        writeToConsole(`Escenario ${featureName} - Inicia la ejecución del escenario`)
+        let error
         try {
-            const { stdout, stderr } = await execAsync('npm run kraken-run')
-            !!stdout && console.log('resultado de la ejecución', stdout)
-            !!stderr && console.error('error en la ejecución', stderr)
-        } catch (error) {
-            console.error(error)
+            await execAsync('npm run kraken-run')
+        } catch (e) {
+            error = e
         }
-        console.log('Finaliza ejecución feaure', filePath)
         await fs.unlink(featurePath)
-        console.log('Feature eliminado de la carpeta de kraken', filePath)
+        const buildEndMessage = (color, icon) => color(`Escenario ${featureName} ${icon} \n`)
+        const message = !!error ? buildEndMessage(chalk.red, '\u26D4') : buildEndMessage(chalk.green, '\u2713')
+        writeToConsole(message)
     }
 }
 
-execFeatures('./escenarios', './features/').catch(console.error)
+execFeatures('./escenarios', './features').catch(console.error)
 

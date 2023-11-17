@@ -28,6 +28,10 @@ class Page {
 
     //type the contentMarkdown
     await element.setValue(content);
+
+    element = await this.driver.$('[data-test-link="pages"]');
+    
+    await element.click()
   }
 
   async createPage(title, content) {
