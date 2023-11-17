@@ -17,23 +17,17 @@ class Page {
     await element.click();
 
     //input the title into the textarea data-test-editor-title-input=""
-    element = await this.driver.$(
-      ".gh-editor-title.ember-text-area.gh-input.ember-view"
+    const titleElement = await this.driver.$(
+      "[data-test-editor-title-input]"
     );
-    await element.setValue(title);
+    await titleElement.setValue(title);
 
     //click on the div with role="textbox"
-    element = await this.driver.$('[role="textbox"]');
+    element = await this.driver.$('[data-koenig-dnd-droppable="true"]');
     await element.click();
 
     //type the contentMarkdown
-    await element.keys(content);
-
-    //wait a second so it autosaves
-    await this.driver.pause(1000);
-
-    //navigate back to pages
-    await this.driver.url(this.baseUrl + "ghost/#/pages");
+    await element.setValue(content);
   }
 
   async createPage(title, content) {
