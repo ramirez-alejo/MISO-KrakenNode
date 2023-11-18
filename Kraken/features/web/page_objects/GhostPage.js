@@ -13,4 +13,18 @@ module.exports = class GhostPage {
     async open(path = '') {
         await this.driver.url(`${this.baseUrl}${path}`);
     }
+
+    async setInput(inputName, value) {
+        await this.setElementValue(`[data-test-input="${inputName}"]`, value);
+    }   
+
+    async setElementValue(selector, value) {
+        const element = await this.driver.$(selector);
+        await element.setValue(value);
+    }
+
+    async clickElement(selector) {
+        const element = await this.driver.$(selector);
+        await element.click();
+    }
 }

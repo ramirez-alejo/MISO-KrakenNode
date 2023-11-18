@@ -66,5 +66,5 @@ const execFeatures = async (featuresPath, krakenFeaturesPath) => {
     }
 }
 
-execFeatures('./escenarios', './features').catch(console.error)
+execFeatures('./escenarios' , './features').catch(console.error)
 
