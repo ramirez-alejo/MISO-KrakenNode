@@ -63,9 +63,11 @@
 <br>
 
 
+# Kraken
+
 ## Ghost:
 Version 5.68.0
-Ghost se encuentra desplegado en Azure en la siguiente Url https://equipo16-568.azurewebsites.net/
+Ghost para nuestras pruebas de kraken se encuentra desplegado en Azure en la siguiente Url https://equipo16-568.azurewebsites.net/
 No se requiere ninguna configuración adicional para ejecutar las pruebas.
 <br>
 
