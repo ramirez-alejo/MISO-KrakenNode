@@ -1,11 +1,10 @@
-# MISO-KrakenNode
+# MISO-Proyecto Pruebas automatizadas Grupo 16
+
+## Funcionalidades:
 <br>
-Grupo 16
+
 <br>
-Funcionalidades:
-<br>
-<br>
-Post
+### Post
 <br>
 1.Crear post sin publicar
 <br>
@@ -18,7 +17,7 @@ Post
 5.Eliminar post
 <br>
 <br>
-Page
+### Page
 <br>
 6.Crear pagina sin publicar
 <br>
@@ -32,7 +31,7 @@ Page
 <br>
 <br>
 
-Tags
+### Tags
 <br>
 11.Crear tags
 <br>
@@ -46,7 +45,7 @@ Tags
 <br>
 <br>
 
-Members
+### Members
 <br>
 16.Agregar member
 <br>
@@ -56,7 +55,7 @@ Members
 <br>
 <br>
 
-Menu
+### Menu
 <br>
 19.Agregar pagina al menu
 <br>
@@ -64,19 +63,15 @@ Menu
 <br>
 
 
-**Ghost:
+## Ghost:
 Version 5.68.0
-Recomandamos utilizar la version contenerizada de Ghost, para esto se debe tener instalado Docker y Docker Compose.
-Para utlizat la version contenerizada de Ghost se debe ejecutar el siguiente comando en la carpeta /Ghost-Docker-compose: docker-compose up --build
-Una vez se haya ejecutado el comando anterior se debe ingresar a la siguiente url: http://localhost:2368/ghost/#/setup/one
-Note: el comando anterior puede tomar un par de minutos la primera vez que se ejecuta mientras genera el esquema de la base de datos. En esta url se debe configurar el usuario y contraseña para Ghost.
-
-Una vez se haya configurado el usuario y contraseña se puede correr kraken.
+Ghost se encuentra desplegado en Azure en la siguiente Url https://equipo16-568.azurewebsites.net/
+No se requiere ninguna configuración adicional para ejecutar las pruebas.
+<br>
 
 
-
-**Kraken, Instalación y configuración
-Ubicacion carpeta /Kraken dese el root del repositorio
+## Kraken, Instalación y configuración
+Ubicacion carpeta /Kraken desde el root del repositorio
 Prerequisitos: 
 1. Usar la versión 16.14.2 de Node.Js 
 2. Tener instalado Android Studio
@@ -101,11 +96,11 @@ Instalación y set-up de Kraken:
 4. Instalar Appium en global: npm install -g appium
 5. Puede verificar que todo haya quedado instalado usando el comando kraken-node doctor
 
-Ejecución: 
-Para ejecutar Kraken use el comando: npm run kraken run
+Ejecución: <br>
+Para ejecutar Kraken  debe verificar que se encuentre en la carpeta /Kraken desde el root del repositorio y
+use el comando: npm run start.
 
-Configuración:
-Actualizar el archivo properties.json con el host, usuario y contraseña para Ghost.
+Este comando copia uno a uno los feature files de la carpeta /escenarios a la carpeta /features y ejecuta los tests tomando las capturas de pantalla en la carpeta reports/screenshots.
 
 
 -------
