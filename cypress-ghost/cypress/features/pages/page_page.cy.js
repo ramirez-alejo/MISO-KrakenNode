@@ -88,6 +88,26 @@ class pagePage {
     this.elementos.volverAPaginas();
   }
 
+  agregarTagAPagina(tag,tituloPagina){
+    this.navegarAPages();
+    cy.contains('.gh-post-list-title', tituloPagina).click();
+    cy.get('button.settings-menu-toggle[title="Settings"]').click();
+    cy.wait(500);
+    cy.get('#tag-input input.ember-power-select-trigger-multiple-input').type(tag);
+    cy.wait(500);
+    cy.contains('li.ember-power-select-option', tag).click();
+    cy.get('button.settings-menu-toggle[title="Settings"]').click();
+    cy.wait(500);
+    cy.get('button[data-test-button="publish-save"]').click();
+    cy.wait(5000);
+  }
+
+  validarTagPagina(tag,tituloPagina){
+    cy.visit('/'+'#/pages?tag='+tag);
+    cy.wait(2000);
+    cy.contains('.gh-post-list-title', tituloPagina).should("have.length", 1);
+  }
+
 
 }
 export default new pagePage();

@@ -113,6 +113,27 @@ class postPage {
     this.elementos.botonEliminar().click();
     this.elementos.botonConfirmacionEliminar().should("be.visible").click();
   }
+
+  agregarTag(tag,tituloPost){
+    cy.get('a[data-test-nav="posts"]').click();
+    cy.contains('.gh-content-entry-title', tituloPost).click();
+    cy.wait(500);
+    cy.get('.settings-menu-toggle').click();
+    cy.wait(500)
+    cy.get('#tag-input .ember-power-select-trigger-multiple-input').type(tag);
+    cy.wait(500)
+    cy.contains('li.ember-power-select-option', tag).click();
+    cy.get('.settings-menu-toggle').click();
+    cy.get('button[data-test-button="publish-save"]').click();
+    cy.contains('.gh-notification-title', 'Updated', { timeout: 10000 }).should('exist')
+  }
+
+  validarTagPagina(tag,tituloPost){
+    cy.visit('/'+'#/posts?tag='+tag);
+    cy.wait(2000);
+    cy.get('.gh-list-row .gh-content-entry-title').contains('Coming soon').should('have.length', 1);
+  }
 }
+
 
 export default new postPage();

@@ -36,11 +36,11 @@ Then("Validar enlace impersonar generado", () =>{
       memberPage.validarImpersonar();
     });
 
-    Then (
-      "Validar que no exista usuario con nombre:{string} y correo:{string}",
-      (nombre,correo) => {
-          memberPage.validarQueNoExistaUnMiembroEnElListadoConLosDatos(nombre,correo);
-      }
-  
-    );
+Then (
+  "Validar que no exista usuario con nombre:{string} y correo:{string}",
+  (nombre,correo) => {
+      memberPage.validarQueNoExistaUnMiembroEnElListadoConLosDatos(nombre,correo);
+  }
+
+);
 
