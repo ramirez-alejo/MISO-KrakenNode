@@ -3,8 +3,7 @@ const properties = require('../../../properties.json');
 module.exports = class GhostPage {
 
     constructor(driver) {
-        this.baseUrl = properties.Host;
-        console.log('baseUrl:', this.baseUrl)
+        this.baseUrl = properties.Host + 'ghost/';
         this.driver = driver;
     }
     /**   
