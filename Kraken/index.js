@@ -47,12 +47,13 @@ const execFeatures = async (featuresPath, krakenFeaturesPath) => {
     const featureFilePaths = await getFeatureFilePaths(featuresPath)
     console.log('"%d" escenarios encontrados', featureFilePaths.length)
     for (const filePath of featureFilePaths) {
+        const feature = chalk.blueBright(filePath.split('/').slice(-2).join('/'));
         const featureName = path.basename(filePath)
-        writeToConsole(`Escenario ${featureName}`)
+        writeToConsole(`Escenario ${feature}`)
         const featurePath = krakenFeaturesPath + '/' + featureName
-        writeToConsole(`Escenario ${featureName} - Copiando archivo`)
+        writeToConsole(`Escenario ${feature} - Copiando archivo`)
         await fs.copyFile(filePath, featurePath)
-        writeToConsole(`Escenario ${featureName} - Inicia la ejecución del escenario`)
+        writeToConsole(`Escenario ${feature} - Inicia la ejecución del escenario`)
         let error
         try {
             await execAsync('npm run kraken-run')
@@ -60,7 +61,7 @@ const execFeatures = async (featuresPath, krakenFeaturesPath) => {
             error = e
         }
         await fs.unlink(featurePath)
-        const buildEndMessage = (color, icon) => color(`Escenario ${featureName} ${icon} \n`)
+        const buildEndMessage = (color, icon) => color(`Escenario ${feature} ${icon} \n`)
         const message = !!error ? buildEndMessage(chalk.red, '\u26D4') : buildEndMessage(chalk.green, '\u2713')
         writeToConsole(message)
     }

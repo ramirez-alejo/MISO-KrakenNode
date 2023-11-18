@@ -5,7 +5,7 @@ class LoginPage extends GhostPage {
   }
   async login(username, password) {
     // First navitage to the login page
-    await this.open();
+    await this.open('#/signin');
     // find element #identification
     let userElement = await this.driver.$('#identification');
     await userElement.setValue(username);
