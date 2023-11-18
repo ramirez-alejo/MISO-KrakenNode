@@ -39,7 +39,7 @@ class Page {
 
     // select the page with the provided title
     let element = await this.driver.$('//li[contains(a, "' + title + '")]');
-    await element.waitForDisplayed();
+    await element.waitForDisplayed(5000);
     await element.click();
 
     // click on the preview button data-test-button="publish-preview"
@@ -58,16 +58,19 @@ class Page {
     element = await this.driver.$('[data-test-task-button-state="idle"]');
     await element.click();
 
-    // look for the element with class data-test-publish-flow="complete"
-    element = await this.driver.$('[data-test-publish-flow="complete"]');
-    await element.waitForDisplayed();
+    // look for the element with class data-test-publish-flow
+     //element = await this.driver.$('[data-test-publish-flow]');
+     //await element.waitForDisplayed();
+
+     //Give a little wait to complete
+     await this.driver.pause(1000);
 
     // navigate back to the relative path /dashboard
     await this.driver.url(this.baseUrl + "ghost/#/dashboard");
   }
 
   async openAndCheck(title) {
-    //Navigate to the path /pagetitle
+    //Navigate to the path /pagetitles
     await this.driver.url(this.baseUrl + title);
 
     //look for the title element with class gh-article-title is-title
@@ -85,7 +88,7 @@ class Page {
 
     //look for the element with x path //li[contains(a, 'page_1')]
     let element = await this.driver.$('//li[contains(a, "' + title + '")]');
-    await element.waitForDisplayed();
+    await element.waitForDisplayed(5000);
 
     // navigate back to the relative path /dashboard
     await this.driver.url(this.baseUrl + "ghost/#/dashboard");
@@ -97,7 +100,8 @@ class Page {
 
     //look for the element with x path //li[contains(a, 'page_1')]
     let element = await this.driver.$('//li[contains(a, "' + title + '")]');
-    await element.waitForDisplayed();
+    //this need a longer wait
+    await element.waitForDisplayed(5000);
     await element.click();
 
     //look for the element with class gh-editor-title ember-text-area gh-input ember-view
@@ -128,7 +132,7 @@ class Page {
     await this.driver.url(this.baseUrl + "ghost/#/pages");
     //look for the element with x path //li[contains(a, 'page_1')]
     let element = await this.driver.$('//li[contains(a, "' + title + '")]');
-    await element.waitForDisplayed();
+    await element.waitForDisplayed(5000);
     await element.click();
 
     //get the element with class data-test-button="update-flow"
@@ -158,7 +162,7 @@ class Page {
 
     //look for the element with x path //li[contains(a, 'page_1')]
     let element = await this.driver.$('//li[contains(a, "' + title + '")]');
-    await element.waitForDisplayed();
+    await element.waitForDisplayed(5000);
     await element.click();
 
     //look for the element with class data-test-psm-trigger

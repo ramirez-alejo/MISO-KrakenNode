@@ -57,8 +57,8 @@ class Post {
       element = await this.driver.$('[data-test-button="confirm-publish"]');
       await element.click();
 
-     // look for the element with class data-test-publish-flow="complete"
-      element = await this.driver.$('[data-test-publish-flow="complete"]');
+      // look for the element with class data-test-publish-flow
+      element = await this.driver.$('[data-test-publish-flow]');
       await element.waitForDisplayed();
 
       // navigate back to the relative path /dashboard

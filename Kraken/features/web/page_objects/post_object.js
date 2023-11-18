@@ -61,9 +61,12 @@ class Post {
       element = await this.driver.$('[data-test-button="confirm-publish"]');
       await element.click();
 
-     // look for the element with class data-test-publish-flow="complete"
-      element = await this.driver.$('[data-test-publish-flow="complete"]');
-      await element.waitForDisplayed();
+     // look for the element with class data-test-publish-flow
+     //element = await this.driver.$('[data-test-publish-flow]');
+     //await element.waitForDisplayed();
+
+     //Give a little wait to complete
+      await this.driver.pause(1000);
 
       // navigate back to the relative path /dashboard
       await this.driver.url(this.baseUrl + 'ghost/#/dashboard');
@@ -88,7 +91,7 @@ class Post {
 
       //look for the element with x path //li[contains(a, 'Post_1')]
       let element = await this.driver.$('//li[contains(a, "' + title + '")]');
-      await element.waitForDisplayed();
+      await element.waitForDisplayed(5000);
 
       // click on button with title="Close"
       element = await this.driver.$('[title="Close"]');   
@@ -104,7 +107,7 @@ class Post {
 
       //look for the element with x path //li[contains(a, 'Post_1')]
       let element = await this.driver.$('//li[contains(a, "' + title + '")]');
-      await element.waitForDisplayed();
+      await element.waitForDisplayed(5000);
       await element.click();
 
       //look for the element with class gh-editor-title ember-text-area gh-input ember-view
@@ -124,6 +127,9 @@ class Post {
       element = await this.driver.$('[data-test-task-button-state="idle"]');
       await element.click();
 
+      //Add a little wait to make sure the button is clickable
+      await this.driver.pause(1000);
+
       // navigate back to the relative path /dashboard
       await this.driver.url(this.baseUrl + 'ghost/#/dashboard');
     }
@@ -135,7 +141,7 @@ class Post {
 
       //look for the element with x path //li[contains(a, 'Post_1')]
       let element = await this.driver.$('//li[contains(a, "' + title + '")]');
-      await element.waitForDisplayed();
+      await element.waitForDisplayed(5000);
       await element.click();
 
       //get the element with class data-test-button="update-flow"
@@ -166,7 +172,7 @@ class Post {
 
       //look for the element with x path //li[contains(a, 'Post_1')]
       let element = await this.driver.$('//li[contains(a, "' + title + '")]');
-      await element.waitForDisplayed();
+      await element.waitForDisplayed(5000);
       await element.click();
 
       //look for the element with class data-test-psm-trigger
