@@ -45,11 +45,11 @@ async function executeTest(){
     console.log('Get the list of files to compare 1/2')
     console.log('------------------------------------------------------------------------------------')
     //Get the list of files to compare
-    const files = await getScreenShotsFilePaths('../MISO-KrakenNode/Kraken/reports/screenshots');
+    const files = await getScreenShotsFilePaths('../Kraken/reports/screenshots');
     console.log('Get the list of files to compare 2/2')
     console.log('------------------------------------------------------------------------------------')
     //Get the list of files to compare
-    const files2 = await getScreenShotsFilePaths('../MISO-KrakenNode/Kraken510/reports/screenshots');
+    const files2 = await getScreenShotsFilePaths('../Kraken510/reports/screenshots');
 
     const options = {
         output: {
