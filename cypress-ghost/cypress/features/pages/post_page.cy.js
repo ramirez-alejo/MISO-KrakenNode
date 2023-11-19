@@ -110,8 +110,9 @@ class postPage {
   }
 
   eliminarPost() {
-    this.elementos.botonEliminar().click();
-    this.elementos.botonConfirmacionEliminar().should("be.visible").click();
+    this.elementos.botonEliminar().click({waitForAnimations : true});
+    this.elementos.botonConfirmacionEliminar().should("be.visible").click({waitForAnimations : true});
+    cy.wait(1000);
   }
 
   agregarTag(tag,tituloPost){
