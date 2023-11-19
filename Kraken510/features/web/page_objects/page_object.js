@@ -10,12 +10,10 @@ class Page {
 
     //click on the pages menu option data-test-nav="pages"
     let element = await this.driver.$('[data-test-nav="pages"]');
-    await element.waitForDisplayed(5000);
     await element.click();
 
     // click on new pages data-test-new-page-button=""
     element = await this.driver.$("[data-test-new-page-button]");
-    await element.waitForDisplayed(5000);
     await element.click();
 
     //input the title into the textarea data-test-editor-title-input=""
@@ -26,7 +24,6 @@ class Page {
 
     //click on the div with role="textbox"
     element = await this.driver.$('[data-koenig-dnd-droppable="true"]');
-    await element.waitForDisplayed(5000);
     await element.click();
 
     //type the contentMarkdown
@@ -47,27 +44,23 @@ class Page {
 
     // click on the preview button data-test-button="publish-preview"
     element = await this.driver.$('[data-test-button="publish-preview"]');
-    await element.waitForDisplayed(5000);
     await element.click();
 
     //click on the publish button (the one with s span with the test Publish inside)
     element = await this.driver.$("span=Publish");
-    await element.waitForDisplayed(5000);
     await element.click();
 
     // click on the continue button data-test-button="continue"
     element = await this.driver.$('[data-test-button="continue"]');
-    await element.waitForDisplayed(5000);
     await element.click();
 
     //click on publish page data-test-task-button-state="idle"
     element = await this.driver.$('[data-test-task-button-state="idle"]');
-    await element.waitForDisplayed(5000);
     await element.click();
 
     // look for the element with class data-test-publish-flow
      //element = await this.driver.$('[data-test-publish-flow]');
-     //await element.waitForDisplayed();
+     //await element.waitForDisplayed(5000);
 
      //Give a little wait to complete
      await this.driver.pause(1000);
@@ -83,12 +76,10 @@ class Page {
     //look for the title element with class gh-article-title is-title
     let element = await this.driver.$(".gh-article-title.is-title");
     await element.waitForDisplayed(5000);
-    await element.waitForDisplayed();
 
     //look for the content section class gh-content gh-canvas is-body
     element = await this.driver.$(".gh-content.gh-canvas.is-body");
     await element.waitForDisplayed(5000);
-    await element.waitForDisplayed();
   }
 
   async checkPageDraft(title) {
@@ -117,7 +108,7 @@ class Page {
     element = await this.driver.$(
       ".gh-editor-title.ember-text-area.gh-input.ember-view"
     );
-    await element.waitForDisplayed();
+    await element.waitForDisplayed(5000);
     await element.setValue(newTitle);
 
     //look for the element with class data-kg="editor"
@@ -130,7 +121,6 @@ class Page {
 
     // get the element with  class data-test-task-button-state="idle"
     element = await this.driver.$('[data-test-task-button-state="idle"]');
-    await element.waitForDisplayed(5000);
     await element.click();
 
     // navigate back to the relative path /dashboard
@@ -147,12 +137,10 @@ class Page {
 
     //get the element with class data-test-button="update-flow"
     element = await this.driver.$('[data-test-button="update-flow"]');
-    await element.waitForDisplayed(5000);
     await element.click();
 
     //click on the unpublish button data-test-button="revert-to-draft"
     element = await this.driver.$('[data-test-button="revert-to-draft"]');
-    await element.waitForDisplayed(5000);
     await element.click();
 
     // We need a little wait here to make sure the button is clickable
@@ -179,7 +167,6 @@ class Page {
 
     //look for the element with class data-test-psm-trigger
     element = await this.driver.$("[data-test-psm-trigger]");
-    await element.waitForDisplayed(5000);
     await element.click();
 
     // Look for a button inside a div with class settings-menu-delete-button
@@ -189,7 +176,6 @@ class Page {
 
     // confirm click on element with class gh-btn gh-btn-red gh-btn-icon
     element = await this.driver.$(".gh-btn.gh-btn-red.gh-btn-icon");
-    await element.waitForDisplayed(5000);
     await element.click();
 
     // navigate back to the relative path /dashboard
