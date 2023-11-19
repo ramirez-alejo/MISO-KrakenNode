@@ -97,38 +97,43 @@ async function executeTest(){
     }
 
     // Now, generate a single report from comparisonResults
-    let report = '';
-    comparisonResults.forEach(result => {
-        report += `<h2>Comparison for ${result.file1} and ${result.file2}:</h2>`;
-        //Source image 1
-        report += `<h3>Source image 1:</h3>`;
-        report += `<img src="${result.file1}" />`;
-        //Source image 2
-        report += `<h3>Source image 2:</h3>`;
-        report += `<img src="${result.file2}" />`;
-        //Diff image
-        report += `<h3>Diff image:</h3>`;
-        report += `<img src="${result.diffImage}" />`;
-        //Comparison data
-        report += `<h3>Comparison data:</h3>`;
-        report += `<pre>${JSON.stringify(result.comparisonData, null, 2)}</pre>`;
-        report += '<hr>';
-    });
+// Now, generate a single report from comparisonResults
+let report = '';
+comparisonResults.forEach(result => {
 
-    // Wrap the report with necessary HTML tags
-    report = `
-    <html>
-    <head>
-        <title>Comparison Report</title>
-    </head>
-    <body>
-        <h1>Comparison Report</h1>
-        ${report}
-    </body>
-    </html>`;
+    report += `<h2>Comparison for ${result.file1} and ${result.file2}:</h2>`;
+    report += `<table><tr>`;
+    //Source image 1
+    report += `<td><h3>Source image 1:</h3>`;
+    report += `<img src="${result.file1}" style="width: 100%;" /></td>`;
+    //Source image 2
+    report += `<td><h3>Source image 2:</h3>`;
+    report += `<img src="${result.file2}" style="width: 100%;" /></td>`;
+    //Diff image
+    report += `<td><h3>Diff image:</h3>`;
+    report += `<img src="${result.diffImage}" style="width: 100%;" /></td>`;
+    report += `</tr></table>`;
+    //Comparison data
+    report += `<h3>Comparison data:</h3>`;
+    report += `<pre>${JSON.stringify(result.comparisonData, null, 2)}</pre>`;
+    report += '<hr>';
+    
+});
 
-    // Write the report to a file
-    fs.writeFileSync('./comparison_report.html', report);
+// Wrap the report with necessary HTML tags
+report = `
+<html>
+<head>
+    <title>Comparison Report</title>
+</head>
+<body>
+    <h1>Comparison Report</h1>
+    ${report}
+</body>
+</html>`;
+
+// Write the report to a file
+fs.writeFileSync('./comparison_report.html', report);
 
 }
 
