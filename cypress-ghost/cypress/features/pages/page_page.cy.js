@@ -27,7 +27,7 @@ class pagePage {
   crearPage = (titulo) => {
     this.elementos.botonCrearPage().should("be.visible").click();
     this.elementos.tituloPage().should("be.visible").type(titulo);
-    this.elementos.contenidoPage().should("exist").type("Contenido del page");
+    this.elementos.contenidoPage().should("exist").type("Contenido del page").blur();
   };
 
   esperarAQueActualiceElPageEnBaseDeDatos = () => {
@@ -62,7 +62,7 @@ class pagePage {
       .contenidoPage()
       .should("exist")
       .clear()
-      .type("¡Modificamos el contenido de esta page!");
+      .type("¡Modificamos el contenido de esta page!").blur();
     this.navegarAlListadoDespuesDeGuardado();
   };
 
@@ -75,16 +75,15 @@ class pagePage {
   validarTituloEnListadoDePages(pageId, titulo) {
     cy.get(`[data-test-post-id="${pageId}"]`)
       .should("exist")
-      .find(`h3`)
+      .find('h3')
       .should("contain", titulo);
   }
 
   despublicarPage() {
+    cy.wait(3000);
     this.elementos.botonDespublicar().should("be.visible").click();
     this.elementos.confirmacionDeDespublicacion().should("be.visible");
-    cy.wait(3000);
     this.elementos.botonConvertirADraft().should("exist").click();
-    
     this.elementos.volverAPaginas();
   }
 

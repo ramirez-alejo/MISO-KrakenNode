@@ -28,7 +28,7 @@ class postPage {
   crearPostDesdeMenu = (titulo) => {
     this.elementos.accesoDirectoNuevoPost().should("be.visible").click();
     this.elementos.tituloPost().should("exist").type(titulo);
-    this.elementos.contenidoPost().should("exist").type("Contenido del post");
+    this.elementos.contenidoPost().should("exist").type("Contenido del post").blur();
   };
 
   modificarTitulo = (nuevoTitulo) => {
@@ -49,7 +49,7 @@ class postPage {
     return cy
       .intercept("PUT", /\/admin\/posts\/([^/]+)/)
       .as("putAdminPost")
-      .then(() => cy.wait("@putAdminPost"));
+      .then(() => cy.wait("@putAdminPost", { timeout: 10000 }));
   };
 
   obtenerElIdDelPost = () => {
