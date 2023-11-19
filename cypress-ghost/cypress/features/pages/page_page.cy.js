@@ -84,6 +84,7 @@ class pagePage {
     this.elementos.botonDespublicar().should("be.visible").click();
     this.elementos.confirmacionDeDespublicacion().should("be.visible");
     this.elementos.botonConvertirADraft().should("exist").click();
+    cy.wait(3000);
     this.elementos.volverAPaginas();
   }
 

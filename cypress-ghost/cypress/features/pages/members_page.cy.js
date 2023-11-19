@@ -1,5 +1,11 @@
 class memberPage{
 
+    generarGUID() {
+        const guid = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+        return guid;
+      }
+    codigoUnico = this.generarGUID();
+
     formulario = {
         irAMemebers: ()=> cy.get('[data-test-nav="members"]'),
         botonCrearMiembro: ()=> cy.contains('[data-test-new-member-button="true"]', 'New member'),
@@ -17,7 +23,7 @@ class memberPage{
         cy.visit ('/'+'#/members/new');
         cy.wait(1000);
         this.formulario.campoNombre().should("be.visible").type(nombre);
-        this.formulario.campoEmail().should("be.visible").type(correo);
+        this.formulario.campoEmail().should("be.visible").type(nombre+this.codigoUnico+'@correo.com');
         cy.wait(1000);
         this.formulario.botonGuardar().click();
         cy.wait(2000);
@@ -39,14 +45,14 @@ class memberPage{
         this.formulario.irAMemebers().should("be.visible").click();
         cy.wait(500);
         cy.get('.gh-members-list-name').should('contain.text', nombre);
-        cy.get('.gh-members-list-email').should('contain.text', correo);
+        cy.get('.gh-members-list-email').should('contain.text', nombre+this.codigoUnico+'@correo.com');
     };
 
     validarQueNoExistaUnMiembroEnElListadoConLosDatos = (nombre,correo) => {
         this.formulario.irAMemebers().should("be.visible").click();
         cy.wait(500);
         cy.get('.gh-members-list-name').should('not.contain.text', nombre);
-        cy.get('.gh-members-list-email').should('not.contain.text', correo);
+        cy.get('.gh-members-list-email').should('not.contain.text', nombre+this.codigoUnico+'@correo.com');
     };
 
     impersonarMiembro = () =>{

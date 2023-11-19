@@ -79,7 +79,7 @@ class postPage {
     this.elementos.confirmacionDeDespublicacion().should("be.visible");
     cy.wait(3000);
     this.elementos.botonConvertirADraft().should("exist").click();
-    
+    cy.wait(3000);
     this.navegarAlListadoDePosts();
   }
 

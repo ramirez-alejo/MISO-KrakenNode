@@ -10,5 +10,5 @@ Feature: Administrar menu
     Scenario: Eliminar pagina del menu
     Given Se autentica el usuario
     And Navega a las configuraciones de navegacion
-    When Elimina opcion del menu con nombre:"Home"
-    Then Verificar que exista una opcion al menu con nombre:"Home"
+    When Elimina opcion del menu con nombre:"prueba"
+    Then Verificar que exista una opcion al menu con nombre:"prueba"
