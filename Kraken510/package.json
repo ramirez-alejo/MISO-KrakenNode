@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "kraken-run": "kraken-node run",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "chai": "^4.3.10",
+    "chalk": "^4.1.2",
+    "kraken-node": "^1.0.24"
+  }
+}
