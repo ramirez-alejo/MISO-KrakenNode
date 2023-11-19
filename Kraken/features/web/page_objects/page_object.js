@@ -105,16 +105,10 @@ class Page {
 
   async editPage(title, newTitle, newContent) {
     // Navigate to the path /ghost/#/pages
-    await this.driver.url(this.baseUrl + "ghost/#/pages");
-
-    //look for the element with x path //li[contains(a, 'page_1')]
-    let element = await this.driver.$('//li[contains(a, "' + title + '")]');
-    //this need a longer wait
-    await element.waitForDisplayed(5000);
-    await element.click();
+    await this.openPage(title);
 
     //look for the element with class gh-editor-title ember-text-area gh-input ember-view
-    element = await this.driver.$(
+    let element = await this.driver.$(
       ".gh-editor-title.ember-text-area.gh-input.ember-view"
     );
     await element.waitForDisplayed();
@@ -135,6 +129,15 @@ class Page {
 
     // navigate back to the relative path /dashboard
     await this.driver.url(this.baseUrl + "ghost/#/dashboard");
+  }
+
+  async openPage(title) {
+    await this.driver.url(this.baseUrl + "ghost/#/pages");
+    //look for the element with x path //li[contains(a, 'page_1')]
+    let element = await this.driver.$('//li[contains(a, "' + title + '")]');
+    //this need a longer wait
+    await element.waitForDisplayed(5000);
+    await element.click();    
   }
 
   async unPublishPage(title) {
@@ -194,6 +197,41 @@ class Page {
 
     // navigate back to the relative path /dashboard
     await this.driver.url(this.baseUrl + "ghost/#/dashboard");
+  }
+
+  async openSettingsMenu(title) {
+    await this.openPage(title);
+    await this.toggleSettingsMenu();
+  }
+
+  async toggleSettingsMenu() {
+    const element = await this.driver.$('.settings-menu-toggle');
+    await element.click();
+  }
+
+  async addTag(tag) {
+    const element = this.driver.$('#tag-input > ul > input[type="search"]');
+    await element.setValue(tag);
+    await this.driver.keys(['Enter']);
+  }
+
+  async saveChanges() {
+    const element = await this.driver.$('.gh-editor-save-trigger');
+    await element.click();
+  }
+
+  async pageHasTheTag(number, tag) {
+    let element = await this.driver.$('.gh-list');
+    await element.waitForDisplayed();
+    element = await this.driver.$('.gh-contentfilter-menu.gh-contentfilter-tag');
+    await element.click();
+    element = await this.driver.$('.gh-contentfilter-menu-dropdown');
+    await element.waitForDisplayed();
+    element = await element.$(`li=${tag}`);
+    await element.click();
+    element = await this.driver.$(`//li[contains(a, "Page_${number}")]`);
+    await element.waitForDisplayed();
+    return await element.isExisting();
   }
 }
 module.exports = Page;
