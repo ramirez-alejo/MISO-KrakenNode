@@ -18,11 +18,19 @@ class TagPage extends GhostPage {
         return tagUrl.substring(tagUrl.lastIndexOf('/') + 1);
     }
 
-    async setTagFieldsAndSave(name, slug, description){
+    async setTagFieldsAndSave(name, slug, description) {
         await this.setInput('tag-name', name);
         await this.setInput('tag-slug', slug);
         await this.setInput('tag-description', description);
         await this.clickElement('[data-test-button="save"]');
+    }
+
+    async deleteTag() {
+        await this.clickElement('[data-test-button="delete-tag"]');
+    }
+
+    async confirmDelete() {
+        await this.clickElement('[data-test-button="confirm"]');
     }
 
     async selectTagFromList(name) {
@@ -39,6 +47,11 @@ class TagPage extends GhostPage {
     async getTagFromList(name) {
         return await this.driver.$(`[data-test-tag-name]=${name}`);
     }
+
+
+
+
+
 }
 
 module.exports = TagPage;

@@ -31,7 +31,6 @@ const removeFeaturesFromFolder = async (path) => {
         .map(async (dirEntry) => {
             await fs.unlink(path + '/' + dirEntry.name)
         })
-
 }
 
 const writeToConsole = (msg) => {
