@@ -47,7 +47,7 @@ const execFeatures = async (featuresPath, krakenFeaturesPath) => {
     const featureFilePaths = await getFeatureFilePaths(featuresPath)
     console.log('"%d" escenarios encontrados', featureFilePaths.length)
     for (const filePath of featureFilePaths) {
-        const feature = chalk.blueBright(filePath.split(path.delimiter).slice(-2).join(path.delimiter));
+        const feature = chalk.blueBright(filePath.split(path.sep).slice(-2).join(path.sep));
         const featureName = path.basename(filePath)
         writeToConsole(`Escenario ${feature}`)
         const featurePath = path.join(krakenFeaturesPath,featureName);
