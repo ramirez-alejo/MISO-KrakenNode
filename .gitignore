@@ -3,3 +3,4 @@ node_modules/
 **/reports/
 /cypress-ghost/node_modules
 **/.kraken/
+/cypress-ghost/cypress/screenshots

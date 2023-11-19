@@ -42,6 +42,10 @@ When("Eliminar el post", ()=>{
   postPage.eliminarPost();
 });
 
+Then("Eliminar todos los posts", ()=>{
+  postPage.eliminarTodosLosPosts();
+})
+
 Then("Validar que exista el postId el listado de posts con estado {string}",
   (estado) => {
     postPage.validarQueExistaElPostEnElListadoConEstado(postId, estado);

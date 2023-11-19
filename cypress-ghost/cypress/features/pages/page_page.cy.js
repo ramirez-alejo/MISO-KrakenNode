@@ -34,7 +34,7 @@ class pagePage {
     return cy
       .intercept("PUT", /\/admin\/pages\/([^/]+)/)
       .as("putAdminPages")
-      .then(() => cy.wait("@putAdminPages"));
+      .then(() => cy.wait("@putAdminPages", { timeout: 10000 }));
   };
 
   obtenerElIdDelPage = () => {
@@ -96,8 +96,8 @@ class pagePage {
     cy.wait(500);
     cy.contains('li.ember-power-select-option', tag).click();
     cy.get('button.settings-menu-toggle[title="Settings"]').click();
-    cy.wait(500);
-    cy.get('button[data-test-button="publish-save"]').click();
+    // cy.wait(500);
+    cy.get('button[data-test-button="publish-save"]').should("exist").click();
     cy.wait(5000);
   }
 

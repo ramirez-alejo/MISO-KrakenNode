@@ -131,7 +131,15 @@ class postPage {
   validarTagPagina(tag,tituloPost){
     cy.visit('/'+'#/posts?tag='+tag);
     cy.wait(2000);
-    cy.get('.gh-list-row .gh-content-entry-title').contains('Coming soon').should('have.length', 1);
+    cy.get('.gh-list-row .gh-content-entry-title').contains(tituloPost).should('have.length', 1);
+  }
+
+  eliminarTodosLosPosts()
+  {
+    cy.visit('/'+'#/settings/labs/', {setTimeout: 2000});
+    cy.get('button[data-test-button="delete-all"]').should('be.visible').click();
+    cy.get('[data-test-modal="confirm-delete-all"]').should('be.visible').find('button[data-test-button="confirm"]').should("exist").click();
+
   }
 }
 
