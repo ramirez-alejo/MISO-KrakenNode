@@ -10,11 +10,12 @@ const getFeatureFilePaths = async (dir, paths = []) => {
     const featuresDir = await fs.opendir(dir);
     let dirEntry;
     while ((dirEntry = await featuresDir.read()) != null) {
+        const fullPath = path.join(dir,dirEntry.name);
         if (dirEntry.isDirectory()) {
-            paths = await getFeatureFilePaths(dir + '/' + dirEntry.name, paths)
+            paths = await getFeatureFilePaths(fullPath, paths)
         } else if (dirEntry.isFile()) {
             if (dirEntry.name.endsWith('.feature')) {
-                paths.push(dir + '/' + dirEntry.name)
+                paths.push(fullPath)
             }
         }
     }
@@ -23,13 +24,13 @@ const getFeatureFilePaths = async (dir, paths = []) => {
 }
 
 
-const removeFeaturesFromFolder = async (path) => {
-    const dirEntries = await fs.readdir(path, { withFileTypes: true })
+const removeFeaturesFromFolder = async (filePath) => {
+    const dirEntries = await fs.readdir(filePath, { withFileTypes: true })
 
     dirEntries
         .filter(dirEntry => dirEntry.isFile() && dirEntry.name.endsWith('.feature'))
         .map(async (dirEntry) => {
-            await fs.unlink(path + '/' + dirEntry.name)
+            await fs.unlink(path.join(filePath, dirEntry.name))
         })
 }
 
@@ -46,10 +47,10 @@ const execFeatures = async (featuresPath, krakenFeaturesPath) => {
     const featureFilePaths = await getFeatureFilePaths(featuresPath)
     console.log('"%d" escenarios encontrados', featureFilePaths.length)
     for (const filePath of featureFilePaths) {
-        const feature = chalk.blueBright(filePath.split('/').slice(-2).join('/'));
+        const feature = chalk.blueBright(filePath.split(path.delimiter).slice(-2).join(path.delimiter));
         const featureName = path.basename(filePath)
         writeToConsole(`Escenario ${feature}`)
-        const featurePath = krakenFeaturesPath + '/' + featureName
+        const featurePath = path.join(krakenFeaturesPath,featureName);
         writeToConsole(`Escenario ${feature} - Copiando archivo`)
         await fs.copyFile(filePath, featurePath)
         writeToConsole(`Escenario ${feature} - Inicia la ejecución del escenario`)
@@ -66,5 +67,5 @@ const execFeatures = async (featuresPath, krakenFeaturesPath) => {
     }
 }
 
-execFeatures('./escenarios' , './features').catch(console.error)
+execFeatures('./escenarios', './features').catch(console.error)
 

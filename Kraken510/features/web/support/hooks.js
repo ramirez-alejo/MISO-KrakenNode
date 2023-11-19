@@ -12,7 +12,7 @@ BeforeStep(function () {
 })
 
 AfterStep(async function (code) {
-  const filePath = `./reports/screenshots/${code.gherkinDocument.feature.name}/${code.pickle.name}`
+  const filePath = `./reports/screenshots/${code.gherkinDocument.feature.name}/${code.pickle.name}`.replace(/\s/g, '-');
   if (!fs.existsSync(filePath)) {
     fs.mkdirSync(filePath, { recursive: true });
   }
