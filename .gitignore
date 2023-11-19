@@ -3,3 +3,8 @@ node_modules/
 **/reports/
 /cypress-ghost/node_modules
 **/.kraken/
+**/backstop.json
+**/backstop_data/bitmaps_test
+**/backstop_data/bitmaps_reference
+**/backstop_data/bitmaps_reference
+**/backstop_data/html_report
