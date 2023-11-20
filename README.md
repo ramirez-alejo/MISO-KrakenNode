@@ -112,3 +112,17 @@ docker run -d --name ghost5-68 -e NODE_ENV=development -e url=http://localhost:2
 7. Abra el menú Specs
 8. Encontrará el listado de lso features implementados
 9. Ingrese a cada feature y ejecute las pruebas.
+
+
+### Pruebas visuales con ResembleJs
+
+En la raiz del repositorio se encuentra la capeta ResembleJs, esta carpeta contiene el reporte en formato Html comparison_report
+junto con el codigo para la generaciond e dicho reporte, si desea generar el reporte, debe realizar los siguientes pasos.
+1. Navegar al path /ResembleJs desde la raiz del repositorio
+2. ejecutar npm ci
+3. ejecutar npm run start
+
+Esto generara el reporte nuevamente.
+Nota: para generar un reporte con datos actualizados debe haber previamente ejecutado kraken y kraken510
+El script buscara las imagenes generadas por kraken de manera recursiva dentro de las carpetas ./Kraken y  ./kraken510
+y con base en dichas imagenes generara la comparacion y el reporte
