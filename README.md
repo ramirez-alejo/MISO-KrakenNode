@@ -46,10 +46,14 @@
 ## Kraken
 
 ### Ghost:
+Con el fin de facilitar la ejecucion de las pruebas contenidas en el repositorio se deplegaron las version de ghost en Azure cloud, pero debido a la latencia de red es posible que algunas pruebas fallen, en dado caso, es posible ejecutar las pruebas utilizando instancias de ghost locales, que se pueden crear siguiendo las instrucciones contenidas en la seccion "Pruebas utilizando docker compose"
 
 Version 5.68.0
 Ghost para nuestras pruebas de kraken se encuentra desplegado en Azure en la siguiente Url https://equipo16-568.azurewebsites.net/
 No se requiere ninguna configuración adicional para ejecutar las pruebas.
+
+Version 5.10.0
+Ghost para nuestras pruebas de kraken se encuentra desplegado en Azure en la siguiente Url https://equipo16-510.azurewebsites.net/
 
 ### Kraken: Instalación y configuración
 
@@ -193,3 +197,25 @@ npm start
 Esto iniciará la herramienta y realizará las acciones necesarias y al finalizar abrirá el navegador con el reporte generado. Asegúrese de haber cumplido con todos los pre-requisitos antes de ejecutar el comando. ¡Listo para comenzar!
 
 Los resultados quedarán en la carpeta `BackstopJS/backstop_data/html_report` de este repositorio.
+
+
+### Pruebas utilizando docker compose
+
+Con el fin de facilitar la ejecucion de las pruebas contenidas en el repositorio se deplegaron las version de ghost en Azure cloud, pero debido a la latencia de red es posible que algunas pruebas fallen, en dado caso, es posible ejecutar las pruebas utilizando instancias de ghost locales, que se puede crear siguiendo estas instrucciones:
+
+1. Ir a la carpeta donde se encuentra el docker compose de la version que se desea probar. Desde el root del repositorio Ghost-Docker-compose (para Ghost 5.68) o Ghost-Docker-compose-Ghost510 (para ghost 5.10)
+cd Ghost-Docker-compose
+2. Habiendo previamente iniciado docker, ejecutar 
+docker-compose up --build
+3. Debe iniciar el administrador de ghost, (Ver la seccion Instrucciones para iniciar el administrador de Ghost)
+4. Actualizar el archivo properties.json del kraken respectivo (/Kraken/properties.json o /Kraken510/properties.json)
+
+
+
+### Instrucciones para iniciar el administrador de Ghost
+Ingrese a: Ghost 5.68.0 - https://equipo16-568.azurewebsites.net/ghost
+
+En Site title: ingresar cualquier nombre del sitio.
+En Full name: ingresar cualqueir nombre.
+En email address: grupo16@pruebas.com
+En password: VssK5GQ776f2u$r%
