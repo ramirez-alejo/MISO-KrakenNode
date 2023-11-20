@@ -38,4 +38,5 @@ Feature: Administrar los posts
         And Se abre el panel de configuración del post
         And Eliminar el post
         Then Validar que el post no existe dentro del listado
+
         

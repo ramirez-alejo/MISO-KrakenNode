@@ -1,5 +1,6 @@
 Feature: Administrar tags
 
+    
     Scenario: Crear tag
     Given Se autentica el usuario
     When Se crea el tag con nombre:"tag-prueba" y descripcion:"esto es una prueba"
@@ -19,15 +20,21 @@ Feature: Administrar tags
 
     Scenario: Agregar tag a pagina
     Given Se autentica el usuario
+    And Se crea page "Página con tag"
+    And Se publica inmediatamente el post
+    And Se navega al listado de páginas
     And Se crea el tag con nombre:"tag-pagina" y descripcion:"pagina nueva"
-    When Se agrega el tag con nombre:"tag-pagina" a la pagina con titulo:"About this site"
-    Then Validar que  solo una pagina tenga el tag:"tag-pagina" la pagina con titulo:"About this site"
+    When Se agrega el tag con nombre:"tag-pagina" a la pagina con titulo:"Página con tag"
+    Then Validar que  solo una pagina tenga el tag:"tag-pagina" la pagina con titulo:"Página con tag"
 
     Scenario: Agregar tag a post
     Given Se autentica el usuario
+    And Se crea post "Post con tag" desde el acceso directo de nuevo post
+    And Se publica inmediatamente el post
+    And Se navega al listado de posts
     And Se crea el tag con nombre:"tag-post" y descripcion:"post nuevo"
-    When Se agrega el tag con nombre:"tag-post" al post con titulo:"Coming soon"
-    Then Validar que  solo un post tenga el tag:"tag-post" el post con titulo:"Coming soon"
+    When Se agrega el tag con nombre:"tag-post" al post con titulo:"Post con tag"
+    Then Validar que  solo un post tenga el tag:"tag-post" el post con titulo:"Post con tag"
 
 
 

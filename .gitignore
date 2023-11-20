@@ -8,3 +8,5 @@ node_modules/
 **/backstop_data/bitmaps_reference
 **/backstop_data/bitmaps_reference
 **/backstop_data/html_report
+
+/cypress-ghost/cypress/screenshots

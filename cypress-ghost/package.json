@@ -1,10 +1,13 @@
 {
   "devDependencies": {
-    "cypress": "^13.5.0",
+    "cypress": "^13.5.1",
     "cypress-cucumber-preprocessor": "^4.3.1"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": false,
     "step_definitions": "cypress/features/step_definitions"
+  },
+  "dependencies": {
+    "fs-extra": "^11.1.1"
   }
 }
