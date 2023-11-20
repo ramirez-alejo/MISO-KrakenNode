@@ -155,6 +155,9 @@ Las imágenes se construyeron usando Kraken. Existen dos carpetas separadas con 
 
 Para este ejercicio se comparó Ghost con las herramientas *ResmebleJS* y *BackstopJS*.
 
+### Enlace video concluciones  pruebas de regresión visual
+https://www.youtube.com/watch?v=DYc5livKb0E&ab_channel=pruebasautomatizadas
+
 ### Pruebas de regresión visual con ResembleJs
 
 En la raiz del repositorio se encuentra la capeta ResembleJs, esta carpeta contiene el reporte en formato Html comparison_report. `ResembleJs/comparison_report.html`.
