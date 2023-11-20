@@ -61,18 +61,18 @@ Prerequisitos:
 1. Usar la versión 16.14.2 de Node.Js
 2. Tener instalado Android Studio
 3. En las propiedades de Android Studio tener instalado:
-   a. Android SDK Platform-Tools
-   b. Android SDK Build-Tools
-   c. Android SDK Tools (Obsolete) (Se deben poner visibles los paquetes obsoletos si se está usando Android Studio Giraffe o una versión más reciente)
+   - `Android SDK Platform-Tools`
+   - `Android SDK Build-Tools`
+   - `Android SDK Tools` (Obsolete) (Se deben poner visibles los paquetes obsoletos si se está usando Android Studio Giraffe o una versión más reciente)
 
 4. Configurar las siguientes rutas en PATH:
-   a. C:\Users\***\AppData\Local\Android\Sdk\platform-tools
-   b. C:\Users\***\AppData\Local\Android\Sdk\tools
-   c. C:\Users\***\AppData\Local\Android\Sdk\build-tools\VERSION
-   d. C:\Users\***\AppData\Local\Android\Sdk
+   - `C:\Users\***\AppData\Local\Android\Sdk\platform-tools`
+   - `C:\Users\***\AppData\Local\Android\Sdk\tools`
+   - `C:\Users\***\AppData\Local\Android\Sdk\build-tools\VERSION`
+   - `C:\Users\***\AppData\Local\Android\Sdk`
 
 5. Configurar la siguiente variable ambiental:
-   JAVA_HOME: C:\Program Files\Android\Android Studio\jre
+   `JAVA_HOME: C:\Program Files\Android\Android Studio\jre`
 
 #### Instalación y set-up de Kraken:
 
@@ -100,6 +100,9 @@ Version 5.68.0
 Ingresar a [Ghost 5.68.0 - https://equipo16-568.azurewebsites.net/ghost](https://equipo16-568.azurewebsites.net/ghost/)
 #### Sitio para miembros
 Ingresar a [Ghost 5.68.0 - https://equipo16-568.azurewebsites.net/](https://equipo16-568.azurewebsites.net/)
+
+#### Instrucciones para iniciar el administrador de Ghost
+Ingrese a: [Ghost 5.68.0 - https://equipo16-568.azurewebsites.net/ghost](https://equipo16-568.azurewebsites.net/ghost/)
 
 1. En Site title: ingresar cualquier nombre del sitio.
 1. En Full name: ingresar cualqueir nombre.
@@ -135,16 +138,58 @@ Después de correr las pruebas los screenshots quedarán en `cypress-ghost/cypre
 Encontrará una carpeta por cada feature y dentro de ella los archivos primero con el nombre del escenario y posteriormente el nombre del paso.
 
 ----
+## Pruebas de regresión visual
 
-### Pruebas visuales con ResembleJs
+Las imágenes se construyeron usando Kraken. Existen dos carpetas separadas con las dos implementaciones de las pruebas automatizadas: 
+- Vesión 5.68.0: `Kraken`
+- Versión 5.10: `Kraken510`
 
-En la raiz del repositorio se encuentra la capeta ResembleJs, esta carpeta contiene el reporte en formato Html comparison_report
-junto con el codigo para la generaciond e dicho reporte, si desea generar el reporte, debe realizar los siguientes pasos.
+Para este ejercicio se comparó Ghost con las herramientas *ResmebleJS* y *BackstopJS*.
+
+### Pruebas de regresión visual con ResembleJs
+
+En la raiz del repositorio se encuentra la capeta ResembleJs, esta carpeta contiene el reporte en formato Html comparison_report. `ResembleJs/comparison_report.html`.
+
+Para generar el reporte debe seguir lso siguientes pasos:
+
 1. Navegar al path /ResembleJs desde la raiz del repositorio
 2. ejecutar npm ci
 3. ejecutar npm run start
 
-Esto generara el reporte nuevamente.
+Esto generará el reporte nuevamente.
+
 Nota: para generar un reporte con datos actualizados debe haber previamente ejecutado kraken y kraken510
-El script buscara las imagenes generadas por kraken de manera recursiva dentro de las carpetas ./Kraken y  ./kraken510
-y con base en dichas imagenes generara la comparacion y el reporte
+
+El script buscará las imágenes generadas por kraken de manera recursiva dentro de las carpetas ./Kraken y  ./kraken510
+y con base en dichas imagenes generará la comparacián y el reporte.
+
+### Pruebas de regresión visual con Backstop
+
+#### Prerequisitos
+
+Antes de ejecutar la herramienta, asegúrese de cumplir con los siguientes requisitos:
+
+1. Ejecute las pruebas de los proyectos Kraken y Kraken510 desde este repositorio.
+2. Tenga instalada una versión reciente de Node.js (se sugiere la versión 18.18.1).
+3. Asegúrese de tener BackstopJS instalado. Si no lo tiene, puede instalarlo ejecutando el siguiente comando:
+
+``` bash
+npm install -g backstopjs
+```
+
+
+#### Ejecución de la Herramienta
+
+Siga estos pasos para ejecutar la herramienta:
+
+1. Abra una terminal en la ruta relativa de este repositorio, específicamente en **MISO-KrakenNode\BackstopJS**.
+2. Ejecute el siguiente comando:
+
+``` bash
+npm start
+```
+
+
+Esto iniciará la herramienta y realizará las acciones necesarias y al finalizar abrirá el navegador con el reporte generado. Asegúrese de haber cumplido con todos los pre-requisitos antes de ejecutar el comando. ¡Listo para comenzar!
+
+Los resultados quedarán en la carpeta `BackstopJS/backstop_data/html_report` de este repositorio.

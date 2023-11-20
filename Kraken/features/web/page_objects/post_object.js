@@ -16,22 +16,22 @@ class Post {
 
     //click on the posts menu option data-test-nav="posts"
     let element = await this.driver.$('[data-test-nav="posts"]');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.click();
 
     // click on new posts data-test-new-post-button=""
     element = await this.driver.$('[data-test-new-post-button]');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.click();
 
     //input the title into the textarea data-test-editor-title-input=""
     element = await this.driver.$("[data-test-editor-title-input]");
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.setValue(title);
 
     //click on the div with role="textbox"
     element = await this.driver.$('[data-koenig-dnd-droppable="true"]');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.click();
 
     //type the contentMarkdown 
@@ -39,7 +39,7 @@ class Post {
 
     // click on the preview button data-test-button="publish-preview"
     element = await this.driver.$('[data-test-button="publish-preview"]');
-    element.waitForDisplayed(15000);
+    element.waitForDisplayed(115000);
     await element.click();
 
 
@@ -51,7 +51,7 @@ class Post {
 
     // get the element with  class gh-publish-trigger
     let element = await this.driver.$('.gh-publish-trigger');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.click();
 
     // We need a little wait here to make sure the button is clickable
@@ -59,17 +59,17 @@ class Post {
 
     // click on the continue button with xpath //button[contains(span, 'Continue, final review →')]
     element = await this.driver.$('[class="gh-btn gh-btn-black gh-btn-large"]');
-    element.waitForDisplayed(5000);
+    element.waitForDisplayed(15000);
     await element.click();
 
     //click on publish post data-test-button="confirm-publish"
     element = await this.driver.$('[data-test-button="confirm-publish"]');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.click();
 
     // look for the element with class data-test-publish-flow
     //element = await this.driver.$('[data-test-publish-flow]');
-    //await element.waitForDisplayed(5000);
+    //await element.waitForDisplayed(15000);
 
     //Give a little wait to complete
     await this.driver.pause(1000);
@@ -84,11 +84,11 @@ class Post {
 
     //look for the title element with class gh-article-title is-title
     let element = await this.driver.$('.gh-article-title.is-title');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
 
     //look for the content section class gh-content gh-canvas is-body
     element = await this.driver.$('.gh-content.gh-canvas.is-body');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
   }
 
   async CheckPostDraft(title) {
@@ -97,11 +97,11 @@ class Post {
 
     //look for the element with x path //li[contains(a, 'Post_1')]
     let element = await this.driver.$('//li[contains(a, "' + title + '")]');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
 
     // click on button with title="Close"
     element = await this.driver.$('[title="Close"]');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.click();
 
     // navigate back to the relative path /dashboard
@@ -114,12 +114,12 @@ class Post {
 
     //look for the element with class gh-editor-title ember-text-area gh-input ember-view
     let element = await this.driver.$('.gh-editor-title.ember-text-area.gh-input.ember-view');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.setValue(newTitle);
 
     //look for the element with class data-kg="editor"
     element = await this.driver.$('[data-kg="editor"]');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.click();
 
     //type the contentMarkdown 
@@ -127,7 +127,7 @@ class Post {
 
     // get the element with  class data-test-task-button-state="idle"
     element = await this.driver.$('[data-test-task-button-state="idle"]');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.click();
 
     //Add a little wait to make sure the button is clickable
@@ -141,7 +141,7 @@ class Post {
     await this.driver.url(this.baseUrl + 'ghost/#/posts?search=' + title);
     //look for the element with x path //li[contains(a, 'Post_1')]
     let element = await this.driver.$('//li[contains(a, "' + title + '")]');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.click();
   }
 
@@ -151,17 +151,17 @@ class Post {
 
     //look for the element with x path //li[contains(a, 'Post_1')]
     let element = await this.driver.$('//li[contains(a, "' + title + '")]');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.click();
 
     //get the element with class data-test-button="update-flow"
     element = await this.driver.$('[data-test-button="update-flow"]');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.click();
 
     //click on the unpublish button data-test-button="revert-to-draft"
     element = await this.driver.$('[data-test-button="revert-to-draft"]');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.click();
 
     // We need a little wait here to make sure the button is clickable
@@ -173,9 +173,11 @@ class Post {
     //Navigate to the path /pagetitle
     await this.driver.url(this.baseUrl + title);
 
+    await this.driver.pause(1000);
+
     //expect a 404 error
     let element = await this.driver.$('h1=404');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
   }
 
   async DeletePost(title) {
@@ -184,22 +186,22 @@ class Post {
 
     //look for the element with x path //li[contains(a, 'Post_1')]
     let element = await this.driver.$('//li[contains(a, "' + title + '")]');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.click();
 
     //look for the element with class data-test-psm-trigger
     element = await this.driver.$('[data-test-psm-trigger]');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.click();
 
     // Look for a button inside a div with class settings-menu-delete-button
     element = await this.driver.$('.settings-menu-delete-button');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.click();
 
     // confirm click on element with class gh-btn gh-btn-red gh-btn-icon
     element = await this.driver.$('.gh-btn.gh-btn-red.gh-btn-icon');
-    await element.waitForDisplayed(5000);
+    await element.waitForDisplayed(15000);
     await element.click();
 
     // navigate back to the relative path /dashboard
@@ -214,6 +216,7 @@ class Post {
 
   async toggleSettingsMenu() {
     const element = await this.driver.$('.settings-menu-toggle');
+    await element.waitForDisplayed(15000);
     await element.click();
   }
 
@@ -225,20 +228,21 @@ class Post {
 
   async saveChanges() {
     const element = await this.driver.$('.gh-editor-save-trigger');
+    await element.waitForDisplayed(15000);
     await element.click();
   }
 
   async postHasTheTag(number, tag) {
     let element = await this.driver.$('.posts-list.gh-list');
-    await element.waitForDisplayed();
+    await element.waitForDisplayed(15000);
     element = await this.driver.$('.gh-contentfilter-menu.gh-contentfilter-tag');
     await element.click();
     element = await this.driver.$('.gh-contentfilter-menu-dropdown');
-    await element.waitForDisplayed();
+    await element.waitForDisplayed(15000);
     element = await element.$(`li=${tag}`);
     await element.click();
     element = await this.driver.$(`//li[contains(a, "Post_${number}")]`);
-    await element.waitForDisplayed();
+    await element.waitForDisplayed(15000);
     return await element.isExisting();
   }
 }

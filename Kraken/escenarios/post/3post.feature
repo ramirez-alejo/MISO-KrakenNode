@@ -8,6 +8,7 @@ Scenario: Eliminar
   When I create a new post number "$number3" and content "Esto es una prueba automatizada" on "<Host>"
   Then I verify the post was created with number "$$number3" on "<Host>"
   Then I delete the post with number "$$number3" on "<Host>"
+  Then I wait
   Then I check the post with number "$$number3" is not published on "<Host>"  
 
 
