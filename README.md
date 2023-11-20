@@ -61,15 +61,15 @@ Prerequisitos:
 1. Usar la versión 16.14.2 de Node.Js
 2. Tener instalado Android Studio
 3. En las propiedades de Android Studio tener instalado:
-   a. Android SDK Platform-Tools
-   b. Android SDK Build-Tools
-   c. Android SDK Tools (Obsolete) (Se deben poner visibles los paquetes obsoletos si se está usando Android Studio Giraffe o una versión más reciente)
+   - `Android SDK Platform-Tools`
+   - `Android SDK Build-Tools`
+   - `Android SDK Tools` (Obsolete) (Se deben poner visibles los paquetes obsoletos si se está usando Android Studio Giraffe o una versión más reciente)
 
 4. Configurar las siguientes rutas en PATH:
-   a. `C:\Users\***\AppData\Local\Android\Sdk\platform-tools`
-   b. `C:\Users\***\AppData\Local\Android\Sdk\tools`
-   c. `C:\Users\***\AppData\Local\Android\Sdk\build-tools\VERSION`
-   d. `C:\Users\***\AppData\Local\Android\Sdk`
+   - `C:\Users\***\AppData\Local\Android\Sdk\platform-tools`
+   - `C:\Users\***\AppData\Local\Android\Sdk\tools`
+   - `C:\Users\***\AppData\Local\Android\Sdk\build-tools\VERSION`
+   - `C:\Users\***\AppData\Local\Android\Sdk`
 
 5. Configurar la siguiente variable ambiental:
    `JAVA_HOME: C:\Program Files\Android\Android Studio\jre`
