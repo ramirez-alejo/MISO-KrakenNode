@@ -42,14 +42,10 @@ async function executeTest(){
     if (!fs.existsSync('./compare2')){
         fs.mkdirSync('./compare2');
     }
-    console.log('Get the list of files to compare 1/2')
+    console.log('Get the list of files to compare')
     console.log('------------------------------------------------------------------------------------')
     //Get the list of files to compare
     const files = await getScreenShotsFilePaths('../Kraken/reports/screenshots');
-    console.log('Get the list of files to compare 2/2')
-    console.log('------------------------------------------------------------------------------------')
-    //Get the list of files to compare
-    const files2 = await getScreenShotsFilePaths('../Kraken510/reports/screenshots');
 
     const options = {
         output: {
@@ -71,11 +67,16 @@ async function executeTest(){
     // Initialize an array to store comparison results
     let comparisonResults = [];
 
-    const filesLength = Math.min(files.length, files2.length);
-    for (let i = 0; i < filesLength; i++) {
+    for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        const file2 = files2[i];
-        
+        // Lets fin the equivalent file in the second folder (replace Kraken by Kraken510)
+        const file2 = file.replace('Kraken', 'Kraken510');
+
+        //lets check if the file 2 exists
+        if (!fs.existsSync(file2)){
+            continue;
+        }
+
         // Compare the files
         const data = await compareImages(
             fs.readFileSync(file),
