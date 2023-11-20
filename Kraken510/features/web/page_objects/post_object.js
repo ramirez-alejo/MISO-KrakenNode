@@ -31,14 +31,7 @@ class Post {
     await element.click();
 
     //type the contentMarkdown 
-    await element.setValue(content);
-
-    // click on the preview button 
-    element = await this.driver.$('[class="gh-btn gh-btn-editor gh-editor-preview-trigger"]');
-    await element.waitForDisplayed(15000);
-    await element.click();
-
-
+    await element.setValue(content);    
   }
 
   async createPost(title, content) {
@@ -92,10 +85,6 @@ class Post {
     //look for the element with x path //li[contains(a, 'Post_1')]
     let element = await this.driver.$('//li[contains(a, "' + title + '")]');
     await element.waitForDisplayed(15000);
-
-    // click on button with title="Close"
-    element = await this.driver.$('[title="Close"]');
-    await element.click();
 
     // navigate back to the relative path /dashboard
     await this.driver.url(this.baseUrl + 'ghost/#/dashboard');

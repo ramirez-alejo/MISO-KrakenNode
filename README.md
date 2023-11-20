@@ -48,9 +48,12 @@
 ### Ghost:
 Con el fin de facilitar la ejecucion de las pruebas contenidas en el repositorio se deplegaron las version de ghost en Azure cloud, pero debido a la latencia de red es posible que algunas pruebas fallen, en dado caso, es posible ejecutar las pruebas utilizando instancias de ghost locales, que se pueden crear siguiendo las instrucciones contenidas en la seccion "Pruebas utilizando docker compose"
 
-Version 5.68.0
+#### Version 5.68.0
 Ghost para nuestras pruebas de kraken se encuentra desplegado en Azure en la siguiente Url https://equipo16-568.azurewebsites.net/
-No se requiere ninguna configuración adicional para ejecutar las pruebas.
+#### Version 5.10
+Ghost para nuestras pruebas de kraken se encuentra desplegado en Azure en la siguiente Url https://equipo16-510.azurewebsites.net/
+
+No se requiere ninguna configuración adicional para ejecutar las pruebas, las credenciales del usuario de Ghost se pueden encontrar en el archivo `properties.json`.
 
 Version 5.10.0
 Ghost para nuestras pruebas de kraken se encuentra desplegado en Azure en la siguiente Url https://equipo16-510.azurewebsites.net/
@@ -86,9 +89,11 @@ Prerequisitos:
 4. Instalar Appium en global: npm install -g appium
 5. Puede verificar que todo haya quedado instalado usando el comando kraken-node doctor
 
+*Se debe repetir desde el paso 1 en la carpeta `/Kraken510` para ejecutar las pruebas en la versión de ghost 5.10*
+
 ### Ejecución:
 
-Para ejecutar Kraken debe verificar que se encuentre en la carpeta /Kraken desde el root del repositorio y
+Para ejecutar Kraken debe verificar que se encuentre en la carpeta `/Kraken` desde el root del repositorio y
 use el comando: npm start.
 
 Este comando copia uno a uno los feature files de la carpeta /escenarios a la carpeta /features y ejecuta los tests tomando las capturas de pantalla en la carpeta reports/screenshots.
