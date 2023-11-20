@@ -66,13 +66,13 @@ Prerequisitos:
    c. Android SDK Tools (Obsolete) (Se deben poner visibles los paquetes obsoletos si se está usando Android Studio Giraffe o una versión más reciente)
 
 4. Configurar las siguientes rutas en PATH:
-   a. C:\Users\***\AppData\Local\Android\Sdk\platform-tools
-   b. C:\Users\***\AppData\Local\Android\Sdk\tools
-   c. C:\Users\***\AppData\Local\Android\Sdk\build-tools\VERSION
-   d. C:\Users\***\AppData\Local\Android\Sdk
+   a. `C:\Users\***\AppData\Local\Android\Sdk\platform-tools`
+   b. `C:\Users\***\AppData\Local\Android\Sdk\tools`
+   c. `C:\Users\***\AppData\Local\Android\Sdk\build-tools\VERSION`
+   d. `C:\Users\***\AppData\Local\Android\Sdk`
 
 5. Configurar la siguiente variable ambiental:
-   JAVA_HOME: C:\Program Files\Android\Android Studio\jre
+   `JAVA_HOME: C:\Program Files\Android\Android Studio\jre`
 
 #### Instalación y set-up de Kraken:
 
@@ -100,6 +100,9 @@ Version 5.68.0
 Ingresar a [Ghost 5.68.0 - https://equipo16-568.azurewebsites.net/ghost](https://equipo16-568.azurewebsites.net/ghost/)
 #### Sitio para miembros
 Ingresar a [Ghost 5.68.0 - https://equipo16-568.azurewebsites.net/](https://equipo16-568.azurewebsites.net/)
+
+#### Instrucciones para iniciar el administrador de Ghost
+Ingrese a: [Ghost 5.68.0 - https://equipo16-568.azurewebsites.net/ghost](https://equipo16-568.azurewebsites.net/ghost/)
 
 1. En Site title: ingresar cualquier nombre del sitio.
 1. En Full name: ingresar cualqueir nombre.
