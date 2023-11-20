@@ -135,16 +135,27 @@ Después de correr las pruebas los screenshots quedarán en `cypress-ghost/cypre
 Encontrará una carpeta por cada feature y dentro de ella los archivos primero con el nombre del escenario y posteriormente el nombre del paso.
 
 ----
+## Pruebas de regresión visual
 
-### Pruebas visuales con ResembleJs
+Las imágenes se construyeron usando Kraken. Existen dos carpetas separadas con las dos implementaciones de las pruebas automatizadas: 
+- Vesión 5.68.0: `Kraken`
+- Versión 5.10: `Kraken510`
 
-En la raiz del repositorio se encuentra la capeta ResembleJs, esta carpeta contiene el reporte en formato Html comparison_report
-junto con el codigo para la generaciond e dicho reporte, si desea generar el reporte, debe realizar los siguientes pasos.
+Para este ejercicio se comparó Ghost con las herramientas *ResmebleJS* y *BackstopJS*.
+
+### Pruebas de regresión visual con ResembleJs
+
+En la raiz del repositorio se encuentra la capeta ResembleJs, esta carpeta contiene el reporte en formato Html comparison_report. `ResembleJs/comparison_report.html`.
+
+Para generar el reporte debe seguir lso siguientes pasos:
+
 1. Navegar al path /ResembleJs desde la raiz del repositorio
 2. ejecutar npm ci
 3. ejecutar npm run start
 
-Esto generara el reporte nuevamente.
+Esto generará el reporte nuevamente.
+
 Nota: para generar un reporte con datos actualizados debe haber previamente ejecutado kraken y kraken510
-El script buscara las imagenes generadas por kraken de manera recursiva dentro de las carpetas ./Kraken y  ./kraken510
-y con base en dichas imagenes generara la comparacion y el reporte
+
+El script buscará las imágenes generadas por kraken de manera recursiva dentro de las carpetas ./Kraken y  ./kraken510
+y con base en dichas imagenes generará la comparacián y el reporte.
