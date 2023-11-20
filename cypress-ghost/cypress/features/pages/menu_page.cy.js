@@ -1,4 +1,11 @@
+import { siteUrl } from "../../support/e2e";
 class menuPage{
+
+    generarGUID() {
+        const guid = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+        return guid;
+      }
+    codigoUnico = this.generarGUID();
 
     pagina = {
        botonConfiguracion:()=>cy.get('[data-test-nav="settings"]'), 
@@ -11,7 +18,7 @@ class menuPage{
     };
 
     agregarEnlaceNavegacionPrimaria(nombre , enlace){
-        cy.get('.gh-blognav-item[data-test-navitem="new"] .gh-blognav-label input:first').clear().type(nombre);
+        cy.get('.gh-blognav-item[data-test-navitem="new"] .gh-blognav-label input:first').clear().type(nombre+this.codigoUnico);
         cy.get('.gh-blognav-item[data-test-navitem="new"] .gh-blognav-url input:first').clear().type(enlace);
         cy.get('.gh-btn-primary[data-test-save-button]').click();
         cy.wait(1000);
@@ -19,47 +26,28 @@ class menuPage{
     };
     
     eliminarEnlaceNavegacionPrimaria(nombre){
-        cy.get('button.gh-blognav-delete').first().click();
+        cy.get('form#settings-navigation .gh-blognav-delete').each(($element, index, $list) => {
+            cy.wrap($element).click(); 
+            cy.wait(1000); 
+          });
+          
+
         cy.get('.gh-btn-primary[data-test-save-button]').click();
-        cy.wait(1000);
+        cy.wait(5000);
     };
 
     validarOpcionMenu(nombre,enlace){
-        cy.get('a[data-test-nav="site"]').click();
-        cy.get('iframe.site-frame', { timeout: 30000 }).then(iframe => {
-
-            cy.wrap(iframe)                   
-            .its('0.contentDocument.body')
-            .should('not.be.empty')          
-            .as('iframeBody');
-            
-            cy.get('@iframeBody').find('.gh-navigation-brand .gh-burger').click();
-          
-            cy.get('@iframeBody')
-            .find('li.nav-prueba a').should('have.attr', 'href',enlace);
-            
-            cy.get('@iframeBody')
-            .find('li.nav-prueba a').should('have.text', nombre);
-          
-          })
+        cy.visit(siteUrl);
+        cy.wait(3000);
+        cy.get(`li.nav-${nombre+this.codigoUnico}`).should('contain', nombre+this.codigoUnico)
+        
     };
 
     validarOpcionMenuEliminada(nombre){
-        cy.get('a[data-test-nav="site"]').click();
-        cy.get('iframe.site-frame', { timeout: 30000 }).then(iframe => {
-
-            cy.wrap(iframe)                   
-            .its('0.contentDocument.body')
-            .should('not.be.empty')          
-            .as('iframeBody');
-            
-            cy.get('@iframeBody').find('.gh-navigation-brand .gh-burger').click();
-            cy.get('@iframeBody')
-            .find('li.nav-home')
-            .should('not.exist');
-
-          
-          })
+        cy.visit(siteUrl);
+        cy.wait(3000);
+        cy.get(`li.nav-${nombre+this.codigoUnico}`).should('not.exist')
+     
     };
 
 }

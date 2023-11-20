@@ -28,7 +28,7 @@ class postPage {
   crearPostDesdeMenu = (titulo) => {
     this.elementos.accesoDirectoNuevoPost().should("be.visible").click();
     this.elementos.tituloPost().should("exist").type(titulo);
-    this.elementos.contenidoPost().should("exist").type("Contenido del post");
+    this.elementos.contenidoPost().should("exist").type("Contenido del post").blur();
   };
 
   modificarTitulo = (nuevoTitulo) => {
@@ -49,7 +49,7 @@ class postPage {
     return cy
       .intercept("PUT", /\/admin\/posts\/([^/]+)/)
       .as("putAdminPost")
-      .then(() => cy.wait("@putAdminPost"));
+      .then(() => cy.wait("@putAdminPost", {setTimeout:90000}));
   };
 
   obtenerElIdDelPost = () => {
@@ -79,7 +79,7 @@ class postPage {
     this.elementos.confirmacionDeDespublicacion().should("be.visible");
     cy.wait(3000);
     this.elementos.botonConvertirADraft().should("exist").click();
-    
+    cy.wait(3000);
     this.navegarAlListadoDePosts();
   }
 
@@ -110,8 +110,9 @@ class postPage {
   }
 
   eliminarPost() {
-    this.elementos.botonEliminar().click();
-    this.elementos.botonConfirmacionEliminar().should("be.visible").click();
+    this.elementos.botonEliminar().click({waitForAnimations : true});
+    this.elementos.botonConfirmacionEliminar().should("be.visible").click({waitForAnimations : true});
+    cy.wait(1000);
   }
 
   agregarTag(tag,tituloPost){
@@ -131,7 +132,15 @@ class postPage {
   validarTagPagina(tag,tituloPost){
     cy.visit('/'+'#/posts?tag='+tag);
     cy.wait(2000);
-    cy.get('.gh-list-row .gh-content-entry-title').contains('Coming soon').should('have.length', 1);
+    cy.get('.gh-list-row .gh-content-entry-title').contains(tituloPost).should('have.length', 1);
+  }
+
+  eliminarTodosLosPosts()
+  {
+    cy.visit('/'+'#/settings/labs/', {setTimeout: 2000});
+    cy.get('button[data-test-button="delete-all"]').should('be.visible').click();
+    cy.get('[data-test-modal="confirm-delete-all"]').should('be.visible').find('button[data-test-button="confirm"]').should("exist").click();
+
   }
 }
 

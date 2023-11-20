@@ -36,14 +36,18 @@ class tagsPage{
         cy.wait(2000);
         cy.contains('li.gh-tags-list-item', nombre).click();
         cy.wait(2000); 
-        cy.get('[data-test-button="delete-tag"]').click();
+        cy.get('[data-test-button="delete-tag"]').click({waitForAnimations : true});
+        cy.wait(2000);
+        cy.get('.modal-content[data-test-modal="confirm-delete-tag"]').should('exist');
         cy.wait(500);
-        cy.get('[data-test-button="confirm"]').click(); 
+        cy.get('[data-test-button="confirm"]').click({waitForAnimations : true});
+        
+        
     }
 
     validarExisteTag = (nombre,descripcion,cantidaPosts) =>{
-        cy.visit('/'+'#/tags/');
-        cy.wait(2000);
+        cy.visit('/'+'#/tags/', {setTimeout: 2000});
+        // cy.wait(2000);
         cy.get('li.gh-tags-list-item:contains("'+nombre+'")').should('have.length', 1);
         cy.get('li.gh-tags-list-item:contains("'+nombre+'") h3.gh-tag-list-name').should('include.text', nombre);
         cy.get('li.gh-tags-list-item:contains("'+nombre+'") p.gh-tag-list-description').should('include.text', descripcion);
@@ -51,7 +55,10 @@ class tagsPage{
     }
 
     validarNoExisteTag = (nombre) =>{
-        cy.visit('/'+'#/tags/');
+        cy.visit('/'+'#/tags/', {setTimeout: 2000});
+        // cy.get('.modal-content[data-test-modal="unsaved-settings"]').should('be.visible');
+        // cy.get('[data-test-leave-button]').click();
+        // cy.wait(2000);
         cy.get('li.gh-tags-list-item:contains("' + nombre + '")').should('not.exist');
     }
 

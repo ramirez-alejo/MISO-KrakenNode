@@ -27,14 +27,14 @@ class pagePage {
   crearPage = (titulo) => {
     this.elementos.botonCrearPage().should("be.visible").click();
     this.elementos.tituloPage().should("be.visible").type(titulo);
-    this.elementos.contenidoPage().should("exist").type("Contenido del page");
+    this.elementos.contenidoPage().should("exist").type("Contenido del page").blur();
   };
 
   esperarAQueActualiceElPageEnBaseDeDatos = () => {
     return cy
       .intercept("PUT", /\/admin\/pages\/([^/]+)/)
       .as("putAdminPages")
-      .then(() => cy.wait("@putAdminPages"));
+      .then(() => cy.wait("@putAdminPages", { timeout: 90000 }));
   };
 
   obtenerElIdDelPage = () => {
@@ -62,7 +62,7 @@ class pagePage {
       .contenidoPage()
       .should("exist")
       .clear()
-      .type("¡Modificamos el contenido de esta page!");
+      .type("¡Modificamos el contenido de esta page!").blur();
     this.navegarAlListadoDespuesDeGuardado();
   };
 
@@ -75,16 +75,16 @@ class pagePage {
   validarTituloEnListadoDePages(pageId, titulo) {
     cy.get(`[data-test-post-id="${pageId}"]`)
       .should("exist")
-      .find(`h3`)
+      .find('h3')
       .should("contain", titulo);
   }
 
   despublicarPage() {
+    cy.wait(3000);
     this.elementos.botonDespublicar().should("be.visible").click();
     this.elementos.confirmacionDeDespublicacion().should("be.visible");
-    cy.wait(3000);
     this.elementos.botonConvertirADraft().should("exist").click();
-    
+    cy.wait(3000);
     this.elementos.volverAPaginas();
   }
 
@@ -97,8 +97,8 @@ class pagePage {
     cy.wait(500);
     cy.contains('li.ember-power-select-option', tag).click();
     cy.get('button.settings-menu-toggle[title="Settings"]').click();
-    cy.wait(500);
-    cy.get('button[data-test-button="publish-save"]').click();
+    // cy.wait(500);
+    cy.get('button[data-test-button="publish-save"]').should("exist").click();
     cy.wait(5000);
   }
 

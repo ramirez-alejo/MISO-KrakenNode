@@ -7,6 +7,7 @@ Given("Navega al sitio de administración de Ghost", () => {
 
 When("Ingresa usuario: {string} y clave: {string}", (usuario, clave) => {
   loginPage.autenticar(usuario, clave);
+  
 });
 
 Given("Se autentica el usuario", () => {
@@ -16,8 +17,10 @@ Given("Se autentica el usuario", () => {
 
 Then("Navega a la pagina principal", () => {
   loginPage.verificarIngreso();
+  cy.screenshot();
 });
 
 Then('Muestra mensaje de error {string} en la autenticación', (mensajeError)=> {
     loginPage.verficarErrorAutenticacion(mensajeError);
+    cy.screenshot();
 });
