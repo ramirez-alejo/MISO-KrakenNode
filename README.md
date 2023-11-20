@@ -1,5 +1,11 @@
 # MISO-Proyecto Pruebas automatizadas Grupo 16
 
+## Participantes:
+- Luis Orjuela - l.orjuelag@uniandes.edu.co
+- Alejandro Ramírez - a.ramirez1123@uniandes.edu.co
+- Camilo Barreto - fc.barreto@uniandes.edu.co
+- Augusto Romero - a.romeroa23@uniandes.edu.co
+
 ## Funcionalidades:
 
 ### Post
@@ -87,32 +93,48 @@ Este comando copia uno a uno los feature files de la carpeta /escenarios a la ca
 
 ## Cypress:
 
-### Instalar Ghost usando docker:
+### Ambiente de Ghost
 
-1. Correr el siguiente comando con docker instalado en la máquina
+Version 5.68.0
+#### Administrador:
+Ingresar a [Ghost 5.68.0 - https://equipo16-568.azurewebsites.net/ghost](https://equipo16-568.azurewebsites.net/ghost/)
+#### Sitio para miembros
+Ingresar a [Ghost 5.68.0 - https://equipo16-568.azurewebsites.net/](https://equipo16-568.azurewebsites.net/)
 
-```shell
-docker run -d --name ghost5-68 -e NODE_ENV=development -e url=http://localhost:2368 -p 2368:2368 ghost:5.68.0
-```
-
-2. navegar a: `http://localhost:2368/ghost`
-3. En Site title: ingresar cualquier nombre del sitio.
-4. En Full name: ingresar cualqueir nombre.
-5. En email address: grupo16@pruebas.com
-6. En password: VssK5GQ776f2u$r%
+1. En Site title: ingresar cualquier nombre del sitio.
+1. En Full name: ingresar cualqueir nombre.
+1. En email address: `grupo16@pruebas.com`
+1. En password: `VssK5GQ776f2u$r%`
 
 ### Para correr el proyecto de pruebas
 
-1. Usar la versión 18.18.0 de Node.Js
-2. Ingresar a la carpeta cypress-ghost
-3. npm install
-4. cypress open
-5. En la aplicación web de cypress escoger E2E Testing
-6. Escoja el navegador de su preferencia en el siguietne menú
-7. Abra el menú Specs
-8. Encontrará el listado de lso features implementados
-9. Ingrese a cada feature y ejecute las pruebas.
+- Usar la versión 18.18.0 de Node.Js
+- Ubicación de los features: ` cypress-ghost/cypress/features `
+- Ubicación de los steps: ` cypress-ghost/cypress/features/step_definitions `
+- Ubicación de los page objects: ` cypress-ghost/cypress/features/pages `
 
+#### Con la consola de Cypress
+
+1. Ingresar a la carpeta cypress-ghost `cd cypress-ghost`
+1. `npm install`
+1. `cypress open`
+1. En la aplicación web de cypress escoger E2E Testing
+1. Escoja el navegador de su preferencia en el siguietne menú
+1. Abra el menú Specs
+1. Encontrará el listado de lsos features implementados
+1. Ingrese a cada feature y ejecute las pruebas.
+
+#### Con la línea de comandos de Cypress
+
+1. Ingresar a la carpeta cypress-ghost `cd cypress-ghost`
+2. Corra el comando `npx cypress run --spec "**/*.feature"`
+
+#### Resultados de las pruebas
+
+Después de correr las pruebas los screenshots quedarán en `cypress-ghost/cypress/screenshots`
+Encontrará una carpeta por cada feature y dentro de ella los archivos primero con el nombre del escenario y posteriormente el nombre del paso.
+
+----
 
 ### Pruebas visuales con ResembleJs
 
