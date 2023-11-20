@@ -49,7 +49,7 @@ class postPage {
     return cy
       .intercept("PUT", /\/admin\/posts\/([^/]+)/)
       .as("putAdminPost")
-      .then(() => cy.wait("@putAdminPost", { timeout: 10000 }));
+      .then(() => cy.wait("@putAdminPost", {setTimeout:90000}));
   };
 
   obtenerElIdDelPost = () => {

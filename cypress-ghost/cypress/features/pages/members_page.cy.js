@@ -1,3 +1,5 @@
+import { siteUrl } from "../../support/e2e";
+
 class memberPage{
 
     generarGUID() {
@@ -64,8 +66,12 @@ class memberPage{
 
     validarImpersonar = () => {
         cy.wait(2000);
+       
         this.formulario.urlImpersonar().invoke('val').then((value) => {
-            cy.visit (value);
+            const urlObj = new URL(value);
+            const token = urlObj.searchParams.get('token');
+            // cy.visit (value);
+            cy.visit(siteUrl+"/members?token="+token);
             cy.wait(10000);
             this.formulario.botonInformacionMiembro().should("be.visible").click();
         });

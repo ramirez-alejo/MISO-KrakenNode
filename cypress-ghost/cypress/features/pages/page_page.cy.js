@@ -34,7 +34,7 @@ class pagePage {
     return cy
       .intercept("PUT", /\/admin\/pages\/([^/]+)/)
       .as("putAdminPages")
-      .then(() => cy.wait("@putAdminPages", { timeout: 10000 }));
+      .then(() => cy.wait("@putAdminPages", { timeout: 90000 }));
   };
 
   obtenerElIdDelPage = () => {

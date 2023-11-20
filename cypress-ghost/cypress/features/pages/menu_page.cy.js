@@ -28,22 +28,24 @@ class menuPage{
     eliminarEnlaceNavegacionPrimaria(nombre){
         cy.get('form#settings-navigation .gh-blognav-delete').each(($element, index, $list) => {
             cy.wrap($element).click(); 
-            cy.wait(100); 
+            cy.wait(1000); 
           });
           
 
         cy.get('.gh-btn-primary[data-test-save-button]').click();
-        cy.wait(1000);
+        cy.wait(5000);
     };
 
     validarOpcionMenu(nombre,enlace){
         cy.visit(siteUrl);
+        cy.wait(3000);
         cy.get(`li.nav-${nombre+this.codigoUnico}`).should('contain', nombre+this.codigoUnico)
         
     };
 
     validarOpcionMenuEliminada(nombre){
         cy.visit(siteUrl);
+        cy.wait(3000);
         cy.get(`li.nav-${nombre+this.codigoUnico}`).should('not.exist')
      
     };

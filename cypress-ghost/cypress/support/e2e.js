@@ -3,7 +3,7 @@ import "./commands";
 const postPage = require("../features/pages/post_page.cy");
 const loginPage = require("../features/pages/login_page.cy");
 
-export const siteUrl = "http://localhost:2368";
+export const siteUrl = "https://equipo16-568.azurewebsites.net";
 
 
 
