@@ -11,7 +11,16 @@ When('I add a new label {kraken-string} with a url {kraken-string}', async funct
     await this.menuPage.addPrimaryNavigation(label, url);
 });
 
-Then('Should exist a new menu item with label {kraken-string} and url {kraken-string}', async function (label, url) {
+Then('Should exists a new menu item with label {kraken-string} and url {kraken-string}', async function (label, url) {
     const exists = await this.menuPage.checkIfMenuItemExists(label, url);
     expect(exists).to.be.true;
+});
+
+When('I delete the label {kraken-string} and save', async function (label) {
+    await this.menuPage.deletePrimaryNavigations();
+});
+
+Then('Should not exists a menu item with label {kraken-string} and url {kraken-string}', async function (label, url) {
+    const exists = await this.menuPage.checkIfMenuItemExists(label, url);
+    expect(exists).to.be.false;
 });

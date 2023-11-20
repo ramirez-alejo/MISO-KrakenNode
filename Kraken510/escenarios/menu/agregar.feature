@@ -6,4 +6,4 @@ Feature: Navigation Settings
         When I navigate to the path "settings/navigation"
         When I add a new label "$name1" with a url "$url1"
         When I navigate to page "<Host>"
-        Then Should exist a new menu item with label "$$name1" and url "$$url1"
+        Then Should exists a new menu item with label "$$name1" and url "$$url1"
