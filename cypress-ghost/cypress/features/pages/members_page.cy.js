@@ -31,6 +31,31 @@ class memberPage{
         cy.wait(2000);
     };
 
+    navegarACrearMiembro(){
+        cy.visit ('/'+'#/members/new');
+    };
+
+    llenarFormulario(nombre,correo,nota){
+        cy.wait(2000)
+        if(nombre !== ""){
+            this.formulario.campoNombre().should("be.visible").type(nombre)
+        }else{
+            this.formulario.campoNombre().should("be.visible").clear();
+            
+        }
+        if(correo !== ""){
+            this.formulario.campoEmail().should("be.visible").type(correo);
+        }else{
+            this.formulario.campoEmail().should("be.visible").clear();
+        }
+        cy.get('#member-note').type(nota);
+    };
+
+    guardarCambiosFormulario(){
+        this.formulario.botonGuardar().click();
+        cy.wait(500);
+    };
+
     eliminarMiembro = (nombre,correo) => {
         cy.wait(2000);
         this.formulario.botonOpciones().should("be.visible").click();
@@ -77,6 +102,16 @@ class memberPage{
         });
 
     };
+
+    validarMensajeErrorPresente(mensajeError){
+        cy.contains(mensajeError).should('exist');
+    };
+
+    validarFormularioNoPermiteGuardar(){
+        cy.get('[data-test-button="save"]')
+        .find('span[data-test-task-button-state="failure"]')
+        .should('exist');        
+    }
 
 
 }

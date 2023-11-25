@@ -26,6 +26,34 @@ When(
     }
 );
 
+When(
+    "Navego a la creacion de nuevo miembro",
+    ()=>{
+      memberPage.navegarACrearMiembro();
+    }
+);
+
+When(
+    "Se llena el formulario con los datos, nombre:{string} , correo:{string} y nota:{string}",
+    (nombre,correo,nota)=>{
+      memberPage.llenarFormulario(nombre,correo,nota);
+    }
+);
+
+When(
+    "Hago click en el botón de  guardar",
+    ()=>{
+      memberPage.guardarCambiosFormulario();
+    }
+);
+
+Then(
+    "Validar que el formulario no permita guardar",
+    ()=>{
+      memberPage.validarFormularioNoPermiteGuardar();
+    }
+);
+
 
 Then (
     "Validar que exista el miembro con nombre:{string} y correo:{string}",
@@ -48,5 +76,12 @@ Then (
       cy.screenshot();
   }
 
+);
+
+Then(
+  "Debe aparecer  el mensaje de error:{string} en el formulario",
+  (mensajeError)=>{
+     memberPage.validarMensajeErrorPresente(mensajeError);
+  }
 );
 
