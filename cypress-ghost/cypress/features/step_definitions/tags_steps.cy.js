@@ -43,6 +43,30 @@ When(
     }
 );
 
+When("Se llena el formulario con los datos nombre:{string} , descripcion:{string} , color:{string} , slug:{string}",
+    (nombre,descripcion,color,slug)=>{
+        tagPage.llenarFormulario(nombre,descripcion,color,slug);
+    }
+);
+
+When("Navego a la creacion de nuevo tag",
+()=>{
+    tagPage.irAcrearTag();
+}
+);
+
+When("Hago click en el botón de  guardar",
+()=>{
+    tagPage.guardoCambiosEnElFormulario();
+}
+);
+
+When("Navego a las lista de tags y selecciono el tag con nombre:{string} para edición",
+(nombre)=>{
+    tagPage.irAeditarTag(nombre);
+}
+);
+
 
 Then(
     "Validar que exista un tag con nombre:{string} , descripcion:{string} y cantidad de posts:{string}",
@@ -74,7 +98,23 @@ Then(
     (nombre,tituloPost)=>{
         postPage.validarTagPagina(nombre,tituloPost);
         cy.screenshot();
-    }    
+    }   
 );
+
+Then(
+    "Validar que el formulario no permita guardar",
+    ()=>{
+        tagPage.validarFormularioNoPermiteGuardar();
+        cy.screenshot();
+    }   
+);
+
+Then(
+    "Debe aparecer  el mensaje de error:{string} en el formulario",
+    (mensajeError)=>{
+        tagPage.validarMensajeErrorPresente(mensajeError);
+    }
+);
+
 
 
