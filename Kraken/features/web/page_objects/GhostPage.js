@@ -1,4 +1,5 @@
 const properties = require('../../../properties.json');
+const fetch = require('node-fetch');
 
 module.exports = class GhostPage {
 
@@ -16,7 +17,11 @@ module.exports = class GhostPage {
 
     async setInput(inputName, value) {
         await this.setElementValue(`[data-test-input="${inputName}"]`, value);
-    }   
+    }
+    
+    async getInput(inputName) {
+        return await this.driver.$(`[data-test-input="${inputName}"]`);
+    }
 
     async setElementValue(selector, value) {
         const element = await this.driver.$(selector);
@@ -26,5 +31,10 @@ module.exports = class GhostPage {
     async clickElement(selector) {
         const element = await this.driver.$(selector);
         await element.click();
+    }
+
+    async getTestData(dataUrl, method = 'POST') {
+        const response = await fetch(dataUrl, { method: method });
+        this.testData = await response.json();
     }
 }
