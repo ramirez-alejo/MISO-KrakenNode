@@ -1,77 +1,74 @@
-const { Given, When, Then } = require('@cucumber/cucumber');
+const { Given, When, Then, BeforeStep } = require('@cucumber/cucumber');
 const expect = require('chai').expect;
+const properties = require('../../../properties.json');
 
 //lets import here the page object
 const post = require('../page_objects/post_object.js');
 
 
-When('I create a new post draft with number {kraken-string} and content {kraken-string} on {kraken-string}', async function (number, content, host) {
-  const title = 'Post_' + number;
-  const postObject = new post(this.driver, host);
-  return await postObject.createDraftPost(title, content);
+BeforeStep(async function () {
+  if (!this.postObject)
+  {
+    this.host = properties.Host;
+    this.postObject ??= new post(this.driver, this.host);
+  }
 });
 
-Then('I verify the post draft was created with number {kraken-string} on {kraken-string}', async function (number, host) {
+When('I create a new post draft with number {kraken-string} and content {kraken-string}', async function (number, content) {
   const title = 'Post_' + number;
-  const postObject = new post(this.driver, host);
-  return await postObject.CheckPostDraft(title);
+  return await this.postObject.createDraftPost(title, content);
 });
 
-When('I create a new post number {kraken-string} and content {kraken-string} on {kraken-string}', async function (number, content, host) {
+Then('I verify the post draft was created with number {kraken-string}', async function (number) {
   const title = 'Post_' + number;
-  const postObject = new post(this.driver, host);
-  return await postObject.createPost(title, content);
+  return await this.postObject.checkPostDraft(title);
 });
 
-Then('I verify the post was created with number {kraken-string} on {kraken-string}', async function (number, host) {
+When('I create a new post number {kraken-string} and content {kraken-string}', async function (number, content) {
   const title = 'Post_' + number;
-  const postObject = new post(this.driver, host);
-  return await postObject.OpenAndCheck(title);
+  return await this.postObject.createPost(title, content);
 });
 
-Then('I edit the existing post with title {kraken-string} to have the new number {kraken-string} and new content {kraken-string} on {kraken-string}', async function (number, newNumber, newContent, host) {
+Then('I verify the post was created with number {kraken-string}', async function (number) {
+  const title = 'Post_' + number;
+  return await this.postObject.openAndCheckPublished(title);
+});
+
+Then('I edit the existing post with title {kraken-string} to have the new number {kraken-string} and new content {kraken-string}', async function (number, newNumber, newContent) {
   const title = 'Post_' + number;
   const newTitle = 'Post_' + newNumber;
-  const postObject = new post(this.driver, host);
-  return await postObject.EditPost(title, newTitle, newContent);
+  return await this.postObject.editPost(title, newTitle, newContent);
 });
 
-Then('I unpublish the post with number {kraken-string} on {kraken-string}', async function (number, host) {
+Then('I unpublish the post with number {kraken-string}', async function (number) {
   const title = 'Post_' + number;
-  const postObject = new post(this.driver, host);
-  return await postObject.UnPublishPost(title);
+  return await this.postObject.unPublishPost(title);
 });
 
-Then('I check the post with number {kraken-string} is not published on {kraken-string}', async function (number, host) {
+Then('I check the post with number {kraken-string} is not published', async function (number) {
   const title = 'Post_' + number;
-  const postObject = new post(this.driver, host);
-  return await postObject.CheckIsNotAvailable(title);
+  return await this.postObject.checkIsNotAvailable(title);
 });
 
-Then('I delete the post with number {kraken-string} on {kraken-string}', async function (number, host) {
+Then('I delete the post with number {kraken-string}', async function (number) {
   const title = 'Post_' + number;
-  const postObject = new post(this.driver, host);
-  return await postObject.DeletePost(title);
+  return await this.postObject.deletePost(title);
 });
 
-When('I open the post number {kraken-string} settings menu on {kraken-string}', async function (number, host) {
-  const postObject = new post(this.driver, host);
-  await postObject.openSettingsMenu('Post_' + number);
+When('I open the post number {kraken-string} settings menu', async function (number) {
+  await this.postObject.openSettingsMenu('Post_' + number);
 });
 
 When('I add the tag {kraken-string} to the post', async function (tag) {
-  const postObject = new post(this.driver, '');
-  await postObject.addTag(tag);  
+  await this.postObject.addTag(tag);  
 });
 
 When('I save the post changes', async function () {
-  const postObject = new post(this.driver, '');
-  await postObject.saveChanges();  
+  await this.postObject.saveChanges();  
 });
 
 Then('I verify the post with number {kraken-string} has the tag {kraken-string} associated', async function (number, tag) {
-  const postObject = new post(this.driver, '');
-  const exists = await postObject.postHasTheTag(number, tag);  
+  const exists = await this.postObject.postHasTheTag(number, tag);  
   expect(exists).to.be.true;  
 });
 

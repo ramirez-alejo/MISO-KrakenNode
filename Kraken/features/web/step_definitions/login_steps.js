@@ -7,3 +7,8 @@ Given('I login to the Ghost application with username {kraken-string} and passwo
     const loginPage = new LoginPage(this.driver);
     return await loginPage.login(username, password);
 });
+
+Given('I login to the Ghost application with username {kraken-string} and password {kraken-string}', async function (username, password) {
+    const loginPage = new LoginPage(this.driver);
+    return await loginPage.login(username, password);
+});
