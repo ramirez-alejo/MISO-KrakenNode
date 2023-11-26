@@ -33,7 +33,7 @@ module.exports = class GhostPage {
         await element.click();
     }
 
-    async getTestData(dataUrl, method = 'POST') {
+    async getTestData(dataUrl, method = 'GET') {
         const response = await fetch(dataUrl, { method: method });
         this.testData = await response.json();
     }
