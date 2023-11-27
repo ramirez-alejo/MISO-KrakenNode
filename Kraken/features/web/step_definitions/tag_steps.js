@@ -124,3 +124,10 @@ Then('An alert with the message {string} is displayed', async function (message)
     const text = await element.getText();
     expect(text).to.equal(message);
 });
+
+When('I try to create a tag with a x-card long description', async function () {
+    await this.tagPage.toggleCollapsible('X card');
+    await this.tagPage.setTagName(this.tagPage.testData.name);
+    await this.tagPage.setElementValue('#twitter-description', this.tagPage.testData.longDescription);
+    await this.tagPage.save();
+});
