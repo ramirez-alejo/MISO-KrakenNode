@@ -40,7 +40,6 @@ Feature: Administrar los posts
         Then Validar que el post no existe dentro del listado
 
 
-    @focus
     Scenario Outline: En la creación de objetos complejos dentro del post: <objeto>
         Given Se autentica el usuario
         When Se crea elemento complejo con "<marca>" con texto aleatorio
