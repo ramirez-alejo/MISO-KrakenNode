@@ -1,7 +1,10 @@
 import { Given, When, And, Then } from "cypress-cucumber-preprocessor/steps";
 const postPage = require("../pages/post_page.cy");
+import  faker from "faker";
+
 
 let postId;
+let contenidoAleatorio;
 
 When(
   "Se crea post {string} desde el acceso directo de nuevo post",
@@ -13,6 +16,28 @@ When(
     });
   }
 );
+
+When("Se crea elemento {string} con texto aleatorio", (elemento) => {  
+  postPage.crearPostDesdeMenuSinContenido(elemento);
+  contenidoAleatorio = faker.lorem.words(5);
+  postPage.crearContenidoAleatorio(elemento, contenidoAleatorio);
+  cy.screenshot();
+    postPage.obtenerElIdDelPost().then((id) => {
+      postId = id;
+    });
+});
+
+When("Se crea elemento complejo con {string} con texto aleatorio", (elemento) => {  
+  postPage.crearPostDesdeMenuSinContenido(elemento);
+  contenidoAleatorio = faker.lorem.words(5);
+  postPage.crearObjetoContenidoAleatorio(elemento, contenidoAleatorio);
+  cy.screenshot();
+    postPage.obtenerElIdDelPost().then((id) => {
+      postId = id;
+    });
+});
+
+
 
 When("Se modifica el título a {string}", (nuevoTitulo) => {
   postPage.modificarTitulo(nuevoTitulo);
@@ -72,3 +97,14 @@ Then("Validar que el título del post es {string}", (titulo) =>{
   postPage.validarTituloEnListadoDePosts(postId, titulo);
   cy.screenshot();
 });
+
+Then("Validar que exista el elemento con etiqueta {string}", (etiqueta)=>{
+  postPage.validarQueExistaElElementoConEtiqueta(etiqueta, contenidoAleatorio);
+  cy.screenshot();
+});
+
+Then("Validar que exista el elemento complejo con etiqueta {string}", (etiqueta)=>{
+  postPage.validarQueExistaElElementoComplejoConEtiqueta(etiqueta, contenidoAleatorio);
+  cy.screenshot();
+});
+
