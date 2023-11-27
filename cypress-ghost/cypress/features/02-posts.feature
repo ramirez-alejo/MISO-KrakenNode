@@ -39,4 +39,40 @@ Feature: Administrar los posts
         And Eliminar el post
         Then Validar que el post no existe dentro del listado
 
-        
+
+    Scenario Outline: En la creación de objetos complejos dentro del post: <objeto>
+        Given Se autentica el usuario
+        When Se crea elemento complejo con "<marca>" con texto aleatorio
+        And Se navega al listado de posts
+        And Se navega a la edición del post
+        Then Validar que exista el elemento complejo con etiqueta '<etiqueta>'
+    Examples:
+    | objeto | marca | etiqueta |
+    | caja callout | /callout | callout |
+    | Caja markdown | /md | markdown |
+    | Caja códgio | ``` | codeblock |
+    | Caja html | /html | html |
+
+
+    
+    Scenario Outline: En la creación de objetos dentro del post: <objeto>
+        Given Se autentica el usuario
+        When Se crea elemento "<marca>" con texto aleatorio
+        And Se navega al listado de posts
+        And Se navega a la edición del post
+        Then Validar que exista el elemento con etiqueta '<etiqueta>'
+    
+    Examples:
+    | objeto | marca | etiqueta |
+    | lista numerada | 1. | ol |
+    | bullet | - | ul |
+    | cita | > | blockquote |
+    | heading1 | # | h1 |
+    | heading2 | ## | h2 |
+    | heading3 | ### | h3 |
+    | heading4 | #### | h4 |
+    | heading5 | ##### | h5 |
+    | heading6 | ###### | h6 |
+    | despues de 6# es párrafo | ####### | p |
+
+   

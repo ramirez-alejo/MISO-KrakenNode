@@ -28,9 +28,35 @@ class postPage {
   crearPostDesdeMenu = (titulo) => {
     this.elementos.accesoDirectoNuevoPost().should("be.visible").click();
     this.elementos.tituloPost().should("exist").type(titulo);
-    this.elementos.contenidoPost().should("exist").type("Contenido del post").blur();
+    this.escribirContenidoPost("Contenido del post");
   };
 
+  crearPostDesdeMenuSinContenido = (titulo) => {
+    this.elementos.accesoDirectoNuevoPost().should("be.visible").click();
+    this.elementos.tituloPost().should("exist").type("Con la etiqueta: "+titulo);
+  } 
+
+  crearContenidoAleatorio = (elemento, contenido) => {
+    this.escribirContenidoPost(elemento + " ");
+    cy.wait(500);
+    this.escribirContenidoPost(contenido);
+    
+  }
+
+  crearObjetoContenidoAleatorio= (elemento, contenido) => {
+    this.crearObjetoComplejoPost(elemento);
+    cy.focused().then(($focusedElement) => {
+      cy.log($focusedElement);
+      cy.wrap($focusedElement).type(contenido); 
+    });
+  }
+    
+  
+
+  crearObjetoComplejoPost(elemento) {
+    this.elementos.contenidoPost().should("exist").type(elemento).type('{enter}');
+    
+  }
   modificarTitulo = (nuevoTitulo) => {
     this.elementos.tituloPost().should("exist").clear().type(nuevoTitulo);
     this.elementos
@@ -65,6 +91,10 @@ class postPage {
       this.navegarAlListadoDePosts();
     });
   };
+
+  escribirContenidoPost(contenido) {
+    this.elementos.contenidoPost().should("exist").type(contenido).blur();
+  }
 
   publicarDeInmediato() {
     this.elementos.botonPublicar().should("be.visible").click();
@@ -141,6 +171,23 @@ class postPage {
     cy.get('button[data-test-button="delete-all"]').should('be.visible').click();
     cy.get('[data-test-modal="confirm-delete-all"]').should('be.visible').find('button[data-test-button="confirm"]').should("exist").click();
 
+  }
+ 
+  
+  validarQueExistaElElementoConEtiqueta(etiqueta, textoABuscar){
+    this.buscarElementoConEtiqueta(etiqueta, textoABuscar);
+  }
+
+  validarQueExistaElElementoComplejoConEtiqueta(etiqueta, textoABuscar){
+    cy.get('div[data-kg="editor"]').find(`div[data-kg-card="${etiqueta}"]`).first().should('exist')
+  }
+
+  buscarElementoConEtiqueta(etiqueta, textoABuscar) {
+    cy.get('div[data-kg="editor"]').find(`${etiqueta}`).first().should('exist')
+      .find('span').first().should('exist')
+      .invoke('text').then((text) => {
+        expect(text).to.contain(textoABuscar);
+      });
   }
 }
 
