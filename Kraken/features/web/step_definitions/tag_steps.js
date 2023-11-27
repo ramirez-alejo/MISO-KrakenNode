@@ -43,7 +43,7 @@ Given('I get the tag test data', async function () {
     await this.tagPage.getTestData();
 });
 
-When('I try to create a tag with en empty name', async function () {
+When('I try to create a tag with an empty name', async function () {
     await this.tagPage.setTagName('');
     await this.tagPage.save();
 });
@@ -58,7 +58,7 @@ Then('The save button should be disabled', async function () {
     expect(isDisabled).to.be.true;
 });
 
-When('I try to create a tag with en empty slug', async function () {
+When('I try to create a tag with an empty slug', async function () {
     await this.tagPage.setTagName(this.tagPage.testData.name);
     await this.tagPage.save();
 });
@@ -66,4 +66,9 @@ When('I try to create a tag with en empty slug', async function () {
 Then('The slug should be equal to the tag name', async function () {
     const slugText = await this.tagPage.getSlugText();
     expect(slugText).to.equal(this.tagPage.testData.name.replace(/\s/g, '-'));
+});
+
+When('I try to create a tag with a long name', async function () {
+    await this.tagPage.setTagName(this.tagPage.testData.longString);
+    await this.tagPage.save();
 });
