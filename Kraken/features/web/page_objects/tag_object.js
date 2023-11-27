@@ -46,11 +46,20 @@ class TagPage extends GhostPage {
 
     async setTagColor(color) {
         await this.setInput('accentColor', color);
-    }   
+    }
+
+    async setTagMetadataTitle(title) {
+        await this.setElementValue('#meta-title', title);
+    }
 
     async getError(inputName, elementSelector) {
         elementSelector ??= 'p.response';
-        let element = await this.getInput(inputName);
+
+        let element;
+        if (inputName.startsWith('#'))
+            element = await this.driver.$(inputName);
+        else
+            element = await this.getInput(inputName);
         element = await element.parentElement();
         element = await element.$(elementSelector);
         return element.getText();
@@ -86,6 +95,12 @@ class TagPage extends GhostPage {
     async getSlugText() {
         const element = await this.getInput('tag-slug');
         return await element.getValue();
+    }
+
+    toggleMetadataCollapsible() {
+        let element = this.driver.$('.gh-expandable-title=Meta data');
+        element = element.parentElement().parentElement().$('span=Expand');
+        element.click();
     }
 }
 
