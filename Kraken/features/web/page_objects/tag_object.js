@@ -64,7 +64,6 @@ class TagPage extends GhostPage {
     }
 
     async isTagInList(name) {
-
         const element = await this.getTagFromList(name);
         return await element.isExisting();
     }
@@ -76,6 +75,11 @@ class TagPage extends GhostPage {
     async isSaveButtonDisabled() {
         const element = await this.driver.$('[data-test-task-button-state="failure"]');
         return await element.isExisting();
+    }
+
+    async getSlugText() {
+        const element = await this.getInput('tag-slug');
+        return await element.getValue();
     }
 }
 

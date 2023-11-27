@@ -57,3 +57,13 @@ Then('The save button should be disabled', async function () {
     const isDisabled = await this.tagPage.isSaveButtonDisabled();
     expect(isDisabled).to.be.true;
 });
+
+When('I try to create a tag with en empty slug', async function () {
+    await this.tagPage.setTagName(this.tagPage.testData.name);
+    await this.tagPage.save();
+});
+
+Then('The slug should be equal to the tag name', async function () {
+    const slugText = await this.tagPage.getSlugText();
+    expect(slugText).to.equal(this.tagPage.testData.name.replace(/\s/g, '-'));
+});
