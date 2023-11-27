@@ -98,3 +98,9 @@ When('I try to create a tag with a long metadata title', async function () {
     await this.tagPage.setTagMetadataTitle(this.tagPage.testData.longString);
     await this.tagPage.save();
 });
+
+When('I try to create a tag with a long metadata description', async function () {
+    this.tagPage.toggleMetadataCollapsible();
+    await this.tagPage.setTagMetadataDescription(this.tagPage.testData.longDescription);
+    await this.tagPage.save();
+});
