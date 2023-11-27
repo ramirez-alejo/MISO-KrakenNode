@@ -94,19 +94,33 @@ When('I try to create a tag with a long description', async function () {
 });
 
 When('I try to create a tag with a long metadata title', async function () {
-    this.tagPage.toggleMetadataCollapsible();
+    await this.tagPage.toggleCollapsible('Meta data');
     await this.tagPage.setTagMetadataTitle(this.tagPage.testData.longString);
     await this.tagPage.save();
 });
 
 When('I try to create a tag with a long metadata description', async function () {
-    this.tagPage.toggleMetadataCollapsible();
+    await this.tagPage.toggleCollapsible('Meta data');
     await this.tagPage.setTagMetadataDescription(this.tagPage.testData.longDescription);
     await this.tagPage.save();
 });
 
 When('I try to create a tag with an invalid metadata url', async function () {
-    this.tagPage.toggleMetadataCollapsible();
+    await this.tagPage.toggleCollapsible('Meta data');
     await this.tagPage.setTagMetadataUrl(this.tagPage.testData.invalidUrl);
     await this.tagPage.save();
+});
+
+When('I try to create a tag with a x-card long title', async function () {
+    await this.tagPage.toggleCollapsible('X card');
+    await this.tagPage.setTagName(this.tagPage.testData.name);
+    await this.tagPage.setElementValue('#twitter-title', this.tagPage.testData.longDescription);
+    await this.tagPage.save();
+});
+
+Then('An alert with the message {string} is displayed', async function (message) {
+    const element = await this.driver.$('.gh-alert-content');
+    await element.waitForDisplayed({ timeout: 5000 });
+    const text = await element.getText();
+    expect(text).to.equal(message);
 });

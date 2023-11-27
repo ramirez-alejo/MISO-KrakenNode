@@ -103,11 +103,11 @@ class TagPage extends GhostPage {
         const element = await this.getInput('tag-slug');
         return await element.getValue();
     }
-
-    toggleMetadataCollapsible() {
-        let element = this.driver.$('.gh-expandable-title=Meta data');
+    
+    async toggleCollapsible(title) {
+        let element = await this.driver.$(`.gh-expandable-title=${title}`);
         element = element.parentElement().parentElement().$('span=Expand');
-        element.click();
+        await element.click();
     }
 }
 
