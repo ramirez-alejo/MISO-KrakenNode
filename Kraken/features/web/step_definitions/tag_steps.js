@@ -138,3 +138,10 @@ When('I try to create a tag with a facebook long title', async function () {
     await this.tagPage.setElementValue('#og-title', this.tagPage.testData.longDescription);
     await this.tagPage.save();
 });
+
+When('I try to create a tag with a facebook long description', async function () {
+    await this.tagPage.toggleCollapsible('Facebook card');
+    await this.tagPage.setTagName(this.tagPage.testData.name);
+    await this.tagPage.setElementValue('#og-description', this.tagPage.testData.longDescription);
+    await this.tagPage.save();
+});
