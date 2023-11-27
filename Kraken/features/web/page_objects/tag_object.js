@@ -46,7 +46,7 @@ class TagPage extends GhostPage {
 
     async setTagColor(color) {
         await this.setInput('accentColor', color);
-    }
+    }   
 
     async getError(inputName, elementSelector) {
         elementSelector ??= 'p.response';

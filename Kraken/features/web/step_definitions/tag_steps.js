@@ -87,3 +87,8 @@ When('I try to create a tag with a long slug', async function () {
     await this.tagPage.setTagSlug(this.tagPage.testData.longString);
     await this.tagPage.save();
 });
+
+When('I try to create a tag with a long description', async function () {
+    await this.tagPage.setTagDescription(this.tagPage.testData.longDescription);
+    await this.tagPage.save();
+});
