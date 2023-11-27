@@ -1,5 +1,8 @@
 # MISO-Proyecto Pruebas automatizadas Grupo 16
 
+| :exclamation:  La descripción de los escenarios de prueba por tipo de pool de datos se puede consultar en [Pruebas con pool de datos](https://github.com/ramirez-alejo/MISO-KrakenNode/wiki/Pruebas-con-pool-de-datos)   |
+|-----------------------------------------|
+
 ## Participantes:
 - Luis Orjuela - l.orjuelag@uniandes.edu.co
 - Alejandro Ramírez - a.ramirez1123@uniandes.edu.co
