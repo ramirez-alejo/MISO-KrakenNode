@@ -72,3 +72,73 @@ Then('I verify the post with number {kraken-string} has the tag {kraken-string} 
   expect(exists).to.be.true;  
 });
 
+When('I try to create a new post draft with dynamic invalid title', async function () {
+  await this.postObject.getTestDataSet(this.postObject.TestDataTypes.InvalidTitleLength);
+  await this.postObject.draftPostCreationFromTestData();
+
+
+});
+
+When('I try to create a new post draft with dynamic invalid youtube video', async function () {
+  await this.postObject.getTestDataSet(this.postObject.TestDataTypes.InvalidDetails);
+  await this.postObject.draftPostCreationFromTestDataWithDetails('[data-kg-card-menu-item="YouTube"]');
+});
+
+When('I try to create a new post draft with dynamic invalid twitter link', async function () {
+  await this.postObject.getTestDataSet(this.postObject.TestDataTypes.InvalidDetails);
+  await this.postObject.draftpostCreationFromTestDataWithDetails('[data-kg-card-menu-item="X (formerly Twitter)"]');
+});
+
+When('I try to create a new post draft with dynamic invalid Vimeo link', async function () {
+  await this.postObject.getTestDataSet(this.postObject.TestDataTypes.InvalidDetails);
+  await this.postObject.draftpostCreationFromTestDataWithDetails('[data-kg-card-menu-item="Vimeo"]');
+});
+
+When('I try to create a new post draft with dynamic invalid CodePen link', async function () {
+  await this.postObject.getTestDataSet(this.postObject.TestDataTypes.InvalidDetails);
+  await this.postObject.draftpostCreationFromTestDataWithDetails('[data-kg-card-menu-item="CodePen"]');
+});
+
+When('I try to create a new post draft with dynamic invalid Spotify link', async function () {
+  await this.postObject.getTestDataSet(this.postObject.TestDataTypes.InvalidDetails);
+  await this.postObject.draftpostCreationFromTestDataWithDetails('[data-kg-card-menu-item="Spotify"]');
+});
+
+When('I try to create a new post draft with dynamic invalid SoundCloud link', async function () {
+  await this.postObject.getTestDataSet(this.postObject.TestDataTypes.InvalidDetails);
+  await this.postObject.draftpostCreationFromTestDataWithDetails('[data-kg-card-menu-item="SoundCloud"]');
+});
+
+When('I try to create a new post draft with dynamic invalid Other link', async function () {
+  await this.postObject.getTestDataSet(this.postObject.TestDataTypes.InvalidDetails);
+  await this.postObject.draftpostCreationFromTestDataWithDetails('[data-kg-card-menu-item="Other..."]');
+});
+
+Then ('I verify the error is shown for invalid title', async function () {
+  await this.postObject.checkError('Title cannot be');
+});
+
+Then ('I verify the preview option is not available', async function () {
+  await this.postObject.checkPreviewNotAvailable();
+});
+
+Then ('I verify the error is shown', async function () {
+  await this.postObject.checkError('There was an error');
+});
+
+When('I get an error if I try to delete it', async function () {
+  await this.postObject.openpostAdvancedOptions();
+  await this.postObject.delete();
+  await this.postObject.checkErrorAlert('Resource not found error');
+});
+
+Then ('I verify I can go back to the dashboard', async function () {
+  await this.postObject.navigateToDashboard();
+});
+
+Then ('I verify I get an error if I try to remove the author from the post', async function () {
+  await this.postObject.removeAuthor();
+  await this.postObject.checkError('class');
+});
+
+

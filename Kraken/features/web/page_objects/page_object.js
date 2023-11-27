@@ -1,13 +1,21 @@
+const GhostPage = require('./GhostPage');
 const expect = require("chai").expect;
-class Page {
+
+class Page extends GhostPage {
+  TestDataTypes = Object.freeze({
+    InvalidTitleLength: 1,
+    InvalidDetails: 2,
+  });
+
   constructor(driver, host) {
-    this.driver = driver;
-    this.baseUrl = host;
+    super(driver);
+    this.rootUrl = host;
+    this.testData = [];
   }
 
   async goToSettings() {
     // visit the relative path /ghost/#/settings
-    await this.driver.url(this.baseUrl + "ghost/#/settings");
+    await this.driver.url(this.rootUrl + "ghost/#/settings");
   }
 
   async selectPagesFromMenu() {
@@ -54,12 +62,75 @@ class Page {
     await element.click();
   }
 
-  async createDraftPage(title, content) {
+  async draftPageCreationFromTestData(index) {
+    if (index)
+    {
+        if (index < 0 || index >= this.testData.length) {
+          throw new Error("Invalid index");
+        }
+        const title = this.testData[index].pageTitle;
+        return await this.draftPageCreation(title, this.testData[index].pageContent);
+    }
+
+    //lets grab a random index
+    const randomIndex = Math.floor(Math.random() * this.testData.length);
+    const title = this.testData[randomIndex].pageTitle;
+    return await this.draftPageCreation(title, this.testData[randomIndex].pageContent);
+  }
+
+  async draftPageCreationFromTestDataWithDetails(elementSelector, index) {
+    if (index)
+    {
+        if (index < 0 || index >= this.testData.length) {
+          throw new Error("Invalid index");
+        }
+        const title = this.testData[index].title;
+        return await this.draftPageCreation(title, this.testData[index], elementSelector);
+    }
+
+    //lets grab a random index
+    const randomIndex = Math.floor(Math.random() * this.testData.length);
+    const title = this.testData[randomIndex].title;
+    return await this.draftPageCreationWitDetails(title, this.testData[randomIndex], elementSelector);
+  }
+
+  async draftPageCreationWitDetails(title, details, elementSelector) {
+    await this.draftPageCreation(title, details.content);
+    if (details.link)
+    {
+        await this.setLink(elementSelector, details.link);
+    }
+  }
+
+  async setLink(elementSelector, videoLink) {
+    // hit enter key
+    await this.driver.keys(["Enter"]);
+
+    let element = await this.driver.$('[data-kg-plus-button]');
+    await element.waitForDisplayed(15000);
+    await element.click();
+    element = await this.driver.$(elementSelector);
+    await element.waitForDisplayed(15000);
+    await element.click();
+    element = await this.driver.$('[data-testid="embed-url"]');
+    await element.waitForDisplayed(15000);
+    await element.setValue(videoLink);
+
+    // press enter
+    await element.keys(["Enter"]);
+  }
+
+
+  async draftPageCreation(title, content) {
     await this.goToSettings();
     await this.selectPagesFromMenu();
     await this.clickOnNewPage();
     await this.setPageTitle(title);
     await this.setMarkdownContent(content);
+  }
+
+  async createDraftPage(title, content) {
+    await this.draftPageCreation(title, content);
     await this.goBackToPagesList();
   }
 
@@ -100,7 +171,7 @@ class Page {
 
   async navigateToDashboard() {
     // navigate back to the relative path /dashboard
-    await this.driver.url(this.baseUrl + "ghost/#/dashboard");
+    await this.driver.url(this.rootUrl + "ghost/#/dashboard");
   }
 
   async createPage(title, content) {
@@ -143,15 +214,14 @@ class Page {
 
   async openAndCheckPublishedPage(title, content) {
     //Navigate to the path /pagetitles
-    await this.driver.url(this.baseUrl + title);
+    await this.driver.url(this.rootUrl + title);
     await this.checkPublishedTitle(title);
-    if (content)
-      await this.checkPublishedContent(content);
+    if (content) await this.checkPublishedContent(content);
   }
 
   async checkPageDraft(title) {
     // Navigate to the path /ghost/#/pages
-    await this.driver.url(this.baseUrl + "ghost/#/pages");
+    await this.driver.url(this.rootUrl + "ghost/#/pages");
 
     //look for the element with x path //li[contains(a, 'page_1')]
     let element = await this.driver.$('//li[contains(a, "' + title + '")]');
@@ -181,14 +251,13 @@ class Page {
   }
 
   async navigateToPagesSettings() {
-    await this.driver.url(this.baseUrl + "ghost/#/pages");
+    await this.driver.url(this.rootUrl + "ghost/#/pages");
   }
 
   async openPageToEdit(title) {
-
     await this.navigateToPagesSettings();
 
-    await this.driver.url(this.baseUrl + "ghost/#/pages");
+    await this.driver.url(this.rootUrl + "ghost/#/pages");
     //look for the element with x path //li[contains(a, 'page_1')]
     let element = await this.driver.$('//li[contains(a, "' + title + '")]');
     //this need a longer wait
@@ -215,7 +284,7 @@ class Page {
 
   async checkIsNotAvailable(title) {
     //Navigate to the path /pagetitle
-    await this.driver.url(this.baseUrl + title);
+    await this.driver.url(this.rootUrl + title);
 
     //expect a 404 error
     let element = await this.driver.$("h1=404");
@@ -230,11 +299,13 @@ class Page {
   }
 
   async deletePage(title) {
-    
     await this.openPageToEdit(title);
-
     await this.openPageAdvancedOptions();
+    await this.delete();
+    await this.navigateToDashboard();
+  }
 
+  async delete() {
     // Look for a button inside a div with class settings-menu-delete-button
     let element = await this.driver.$(".settings-menu-delete-button");
     await element.waitForDisplayed(15000);
@@ -244,8 +315,6 @@ class Page {
     element = await this.driver.$(".gh-btn.gh-btn-red.gh-btn-icon");
     await element.waitForDisplayed(15000);
     await element.click();
-
-    await this.navigateToDashboard();
   }
 
   async openSettingsMenu(title) {
@@ -289,5 +358,78 @@ class Page {
     await element.waitForDisplayed(15000);
     return await element.isExisting();
   }
+
+  async backToEditor() {
+    //look for the element with class gh-btn-editor gh-editor-back-button
+    let element = await this.driver.$('[gh-btn-editor gh-editor-back-button]');
+    await element.waitForDisplayed(15000);
+    await element.click();
+  }
+
+  async getTestDataSet(testDataType) {
+      let url = "https://my.api.mockaroo.com/";
+
+      if (testDataType == this.TestDataTypes.InvalidTitleLength) {
+        url += "invalid_length_title_content.json?key=062d8850";
+      }
+      else if (testDataType == this.TestDataTypes.InvalidDetails) {
+        url += "invalid_details.json?key=062d8850";
+      }
+      else {
+        throw new Error("Invalid test data type");
+      }
+
+      await super.getTestData(url, 'GET');
+  }
+
+  async checkError(errorContent) {
+    // Get the whole page html
+    //class="gh-main gh-main-white"
+    const html = await this.driver.$(".gh-main.gh-main-white").getHTML(false);
+    expect(html).to.contain(errorContent);
+  }
+
+  async checkErrorAlert(errorContent) {
+    //class="gh-alerts"
+    const html = await this.driver.$(".gh-alerts").getHTML(false);
+    expect(html).to.contain(errorContent);
+  }
+
+  async checkErrorForElement(element, errorContent) {
+    await element.waitForDisplayed(15000);
+    // get the inner html
+    const html = await element.getHTML();
+    expect(html).to.contain(errorContent);
+  }
+
+  async checkErrorForYoutubeVideo() {
+    let element = await this.driver.$('[data-kg-card-selected="true"]');
+    await this.checkErrorForElement(element, "There was an error");
+  }
+
+
+  async checkPreviewNotAvailable() {
+    //look for the element with class="gh-btn gh-btn-outline gh-publishmenu-button"
+    const element = await this.driver.$('[data-test-button="publish-preview"]');
+    expect(await element.isExisting()).to.be.false;
+  }
+
+  async removeAuthor() {
+    await this.openPageAdvancedOptions();
+    //[class="ember-power-select-multiple-option js-draggableObject draggable-object ember-view"]
+    let element = await this.driver.$(
+      ".ember-power-select-multiple-option.js-draggableObject.draggable-object.ember-view"
+    );
+    await element.waitForDisplayed(15000);
+
+    //find the first element with class class="ember-power-select-multiple-remove-btn"
+    let removeElement = await element.$(
+      ".ember-power-select-multiple-remove-btn"
+    );
+    await removeElement.waitForDisplayed(15000);
+    await removeElement.click();
+  }
+
+
 }
 module.exports = Page;

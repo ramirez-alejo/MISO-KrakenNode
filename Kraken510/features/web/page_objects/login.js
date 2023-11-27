@@ -18,7 +18,7 @@ class LoginPage extends GhostPage {
     await loginElement.click();
 
     // Expect to see a div with the class gh-dashboard
-    await this.driver.$('.gh-nav-list.gh-nav-manage').waitForDisplayed(5000);
+    await this.driver.$('.gh-nav-list.gh-nav-manage').waitForDisplayed(15000);
   }
 }
 module.exports = LoginPage;
