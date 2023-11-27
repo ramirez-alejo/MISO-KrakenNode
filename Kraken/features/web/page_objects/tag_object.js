@@ -1,8 +1,11 @@
 const GhostPage = require('./GhostPage');
-
 class TagPage extends GhostPage {
     constructor(driver) {
         super(driver);
+    }
+
+    async getTestData() {
+        await super.getTestData('https://api.mockaroo.com/api/bfe81490?count=1&key=9d0a4cc0');
     }
 
     async createTag(name, slug, description) {
@@ -19,10 +22,32 @@ class TagPage extends GhostPage {
     }
 
     async setTagFieldsAndSave(name, slug, description) {
-        await this.setInput('tag-name', name);
-        await this.setInput('tag-slug', slug);
-        await this.setInput('tag-description', description);
+        await this.setTagName(name);
+        await this.setTagSlug(slug);
+        await this.setTagDescription(description);
+        await this.save();
+    }
+
+    async save() {
         await this.clickElement('[data-test-button="save"]');
+    }
+
+    async setTagDescription(description) {
+        await this.setInput('tag-description', description);
+    }
+
+    async setTagSlug(slug) {
+        await this.setInput('tag-slug', slug);
+    }
+
+    async setTagName(name) {
+        await this.setInput('tag-name', name);
+    }
+
+    async getError(inputName) {
+        let element = await this.getInput(inputName);
+        element = await element.$('//span/p[1]');
+        return element.getText();
     }
 
     async deleteTag() {
@@ -48,10 +73,10 @@ class TagPage extends GhostPage {
         return await this.driver.$(`[data-test-tag-name]=${name}`);
     }
 
-
-
-
-
+    async isSaveButtonDisabled() {
+        const element = await this.driver.$('[data-test-task-button-state="failure"]');
+        return await element.isExisting();
+    }
 }
 
 module.exports = TagPage;

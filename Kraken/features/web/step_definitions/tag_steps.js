@@ -1,8 +1,6 @@
-const { When, Then, BeforeStep } = require('@cucumber/cucumber');
+const { When, Then, BeforeStep, Given } = require('@cucumber/cucumber');
 const TagPage = require('../page_objects/tag_object');
-const { expect } = require('chai')
-
-
+const { expect } = require('chai');
 BeforeStep(async function (code) {
     this.tagPage ??= new TagPage(this.driver);
 });
@@ -39,4 +37,23 @@ When('I confirm the delete dialog', async function () {
 Then('A tag with the name {string} should not exists on the list', async function (name) {
     const exists = await this.tagPage.isTagInList(name);
     expect(exists).to.be.false;
+});
+
+Given('I get the tag test data', async function () {
+    await this.tagPage.getTestData();
+});
+
+When('I try to create a tag with en empty name', async function () {
+    await this.tagPage.setTagName('');
+    await this.tagPage.save();
+});
+
+Then('The error message {string} should be displayed', async function (errorMessage) {
+    const error = await this.tagPage.getError('tag-name');
+    expect(error).to.equal(errorMessage)
+});
+
+Then('The save button should be disabled', async function () {
+    const isDisabled = await this.tagPage.isSaveButtonDisabled();
+    expect(isDisabled).to.be.true;
 });
