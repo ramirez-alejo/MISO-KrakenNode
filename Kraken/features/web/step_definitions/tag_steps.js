@@ -104,3 +104,9 @@ When('I try to create a tag with a long metadata description', async function ()
     await this.tagPage.setTagMetadataDescription(this.tagPage.testData.longDescription);
     await this.tagPage.save();
 });
+
+When('I try to create a tag with an invalid metadata url', async function () {
+    this.tagPage.toggleMetadataCollapsible();
+    await this.tagPage.setTagMetadataUrl(this.tagPage.testData.invalidUrl);
+    await this.tagPage.save();
+});

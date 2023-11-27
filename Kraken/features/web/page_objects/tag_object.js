@@ -55,6 +55,9 @@ class TagPage extends GhostPage {
     async setTagMetadataDescription(description) {
         await this.setElementValue('#meta-description', description);
     }
+    async setTagMetadataUrl(url) {
+        await this.setElementValue('#canonical-url', url);
+    }
 
     async getError(inputName, elementSelector) {
         elementSelector ??= 'p.response';
