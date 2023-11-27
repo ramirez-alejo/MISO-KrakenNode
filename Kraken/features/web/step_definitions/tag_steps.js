@@ -82,3 +82,8 @@ When('I try to create a tag with an invalid color', async function () {
     await this.tagPage.setTagColor(this.tagPage.testData.invalidColor);
     await this.tagPage.save();
 });
+
+When('I try to create a tag with a long slug', async function () {
+    await this.tagPage.setTagSlug(this.tagPage.testData.longString);
+    await this.tagPage.save();
+});
