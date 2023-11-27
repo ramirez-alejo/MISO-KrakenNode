@@ -68,13 +68,13 @@ class Post extends GhostPage {
           throw new Error("Invalid index");
         }
         const title = this.testData[index].pageTitle;
-        return await this.draftPageCreation(title, this.testData[index].pageContent);
+        return await this.draftPostCreation(title, this.testData[index].pageContent);
     }
 
     //lets grab a random index
     const randomIndex = Math.floor(Math.random() * this.testData.length);
     const title = this.testData[randomIndex].pageTitle;
-    return await this.draftPageCreation(title, this.testData[randomIndex].pageContent);
+    return await this.draftPostCreation(title, this.testData[randomIndex].pageContent);
   }
 
   async draftPostCreationFromTestDataWithDetails(elementSelector, index) {

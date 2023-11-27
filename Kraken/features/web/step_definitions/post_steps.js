@@ -118,7 +118,7 @@ Then ('I verify the error is shown for invalid title', async function () {
   await this.postObject.checkError('Title cannot be');
 });
 
-Then ('I verify the preview option is not available', async function () {
+Then ('I verify the preview option is not available for post', async function () {
   await this.postObject.checkPreviewNotAvailable();
 });
 
