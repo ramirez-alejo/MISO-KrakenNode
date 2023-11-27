@@ -48,8 +48,13 @@ When('I try to create a tag with an empty name', async function () {
     await this.tagPage.save();
 });
 
-Then('The error message {string} should be displayed', async function (errorMessage) {
-    const error = await this.tagPage.getError('tag-name');
+Then('The error message {string} should be displayed on {string}', async function (errorMessage, inputName) {
+    const error = await this.tagPage.getError(inputName);
+    expect(error).to.equal(errorMessage)
+});
+
+Then('The error message {string} should be displayed on {string} with selector {string}', async function (errorMessage, inputName, elementSelector) {
+    const error = await this.tagPage.getError(inputName, elementSelector);
     expect(error).to.equal(errorMessage)
 });
 
@@ -70,5 +75,10 @@ Then('The slug should be equal to the tag name', async function () {
 
 When('I try to create a tag with a long name', async function () {
     await this.tagPage.setTagName(this.tagPage.testData.longString);
+    await this.tagPage.save();
+});
+
+When('I try to create a tag with an invalid color', async function () {
+    await this.tagPage.setTagColor(this.tagPage.testData.invalidColor);
     await this.tagPage.save();
 });

@@ -44,9 +44,15 @@ class TagPage extends GhostPage {
         await this.setInput('tag-name', name);
     }
 
-    async getError(inputName) {
+    async setTagColor(color) {
+        await this.setInput('accentColor', color);
+    }
+
+    async getError(inputName, elementSelector) {
+        elementSelector ??= 'p.response';
         let element = await this.getInput(inputName);
-        element = await element.$('//span/p[1]');
+        element = await element.parentElement();
+        element = await element.$(elementSelector);
         return element.getText();
     }
 
