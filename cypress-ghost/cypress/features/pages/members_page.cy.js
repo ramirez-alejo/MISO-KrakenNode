@@ -35,6 +35,33 @@ class memberPage{
         cy.visit ('/'+'#/members/new');
     };
 
+
+    validarActividad(nombre,validardesuscribir){
+        this.formulario.irAMemebers().should("be.visible").click();
+        cy.wait(500);         
+        cy.contains('p.middarkgrey.f8.gh-members-list-email', nombre+this.codigoUnico+'@correo.com').click();
+        cy.wait(500);
+        cy.contains('.gh-member-feed-footer a', 'View all member activity →').click();
+        cy.wait(2000);
+        cy.get('span.gh-members-activity-event-text')
+        .should('exist')
+        .and('contain.text', 'Signed up');
+        cy.get('span.gh-members-activity-event-text')
+        .should('exist')
+        .and('contain.text', 'Subscribed to newsletter');
+        if(validardesuscribir){
+            cy.get('span.gh-members-activity-event-text')
+            .should('exist')
+            .and('contain.text', 'Unsubscribed from newsletter');
+        }
+
+    };
+
+    desuscribirse(){
+        cy.get('label.switch').click();
+    };
+
+
     llenarFormulario(nombre,correo,nota){
         cy.wait(2000)
         if(nombre !== ""){

@@ -47,6 +47,17 @@ When(
     }
 );
 
+
+When(
+    "Se edita suscripción",
+    ()=>{
+      memberPage.desuscribirse();
+      memberPage.guardarCambiosFormulario();
+    }
+)
+
+
+
 Then(
     "Validar que el formulario no permita guardar",
     ()=>{
@@ -82,6 +93,20 @@ Then(
   "Debe aparecer  el mensaje de error:{string} en el formulario",
   (mensajeError)=>{
      memberPage.validarMensajeErrorPresente(mensajeError);
+  }
+);
+
+Then(
+  "Validar que exista activdiad de registro y  Subscrito en  el miembro con nombre:{string}",
+  (nombre)=>{
+    memberPage.validarActividad(nombre,false);
+  }
+);
+
+Then(
+  "Validar que exista activdiad de registro , Subscrito  y cancelar suscripción en  el miembro con nombre:{string}",
+  (nombre)=>{
+    memberPage.validarActividad(nombre,true);
   }
 );
 
