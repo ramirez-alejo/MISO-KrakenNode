@@ -1,8 +1,8 @@
 # MISO-Proyecto Pruebas automatizadas Grupo 16
 
 | :exclamation:  Pruebas automatizadas Semana 1 entrega final en Kraken [Pruebas automatizadas semana 1 de la entrega final Kraken](https://github.com/ramirez-alejo/MISO-KrakenNode/wiki/Pruebas-automatizadas-semana-1-de-la-entrega-final-Kraken)   |
-| :exclamation:  La descripción de los escenarios de prueba por tipo de pool de datos se puede consultar en [Pruebas con pool de datos](https://github.com/ramirez-alejo/MISO-KrakenNode/wiki/Pruebas-con-pool-de-datos)   |
 |-----------------------------------------|
+| :exclamation:  La descripción de los escenarios de prueba por tipo de pool de datos se puede consultar en [Pruebas con pool de datos](https://github.com/ramirez-alejo/MISO-KrakenNode/wiki/Pruebas-con-pool-de-datos)   |
 
 ## Participantes:
 - Luis Orjuela - l.orjuelag@uniandes.edu.co
