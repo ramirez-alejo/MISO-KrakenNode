@@ -6,6 +6,11 @@ const path = require('path')
 const { stdout } = require('process')
 const chalk = require('chalk');
 
+
+const featuresPerWeek = new Map([
+    ['1', [ '1user.feature', '2user.feature', '3user.feature']],
+])
+
 const getFeatureFilePaths = async (dir, paths = []) => {
     const featuresDir = await fs.opendir(dir);
     let dirEntry;
@@ -41,6 +46,17 @@ const writeToConsole = (msg) => {
 }
 
 const execFeatures = async (featuresPath, krakenFeaturesPath) => {
+
+    const week = process.argv[2]
+    if (week) {
+        console.log('Ejecutando escenarios para la semana %s', week)
+
+        if (!featuresPerWeek.get(week)){
+            console.log('La semana "%s" no existe', week)
+            return
+        }
+    }
+
     console.log('Eliminando escenarios de la carpeta "%s"', krakenFeaturesPath)
     await removeFeaturesFromFolder(krakenFeaturesPath);
     console.log('Obteniendo escenarios a ejecutar de la carpeta "%s"', featuresPath)
@@ -49,6 +65,13 @@ const execFeatures = async (featuresPath, krakenFeaturesPath) => {
     for (const filePath of featureFilePaths) {
         const feature = chalk.blueBright(filePath.split(path.sep).slice(-2).join(path.sep));
         const featureName = path.basename(filePath)
+
+        //If we got the week parameter, we only execute the features for that week
+        if (week && !featuresPerWeek.get(week).includes(featureName)) {
+            console.log('Escenario %s - Saltando escenario ya que no es parte de la semana %s', feature, week)
+            continue;
+        }
+
         writeToConsole(`Escenario ${feature}`)
         const featurePath = path.join(krakenFeaturesPath,featureName);
         writeToConsole(`Escenario ${feature} - Copiando archivo`)
@@ -66,6 +89,7 @@ const execFeatures = async (featuresPath, krakenFeaturesPath) => {
         writeToConsole(message)
     }
 }
+
 
 execFeatures('./escenarios', './features').catch(console.error)
 
