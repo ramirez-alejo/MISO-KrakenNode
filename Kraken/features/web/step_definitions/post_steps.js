@@ -142,3 +142,9 @@ Then ('I verify I get an error if I try to remove the author from the post', asy
 });
 
 
+Then ('I check the post with number {kraken-string} history and shows multiple entries', async function (number) {
+  const title = 'Post_' + number;
+  return await this.postObject.checkPostHistory(title);
+});
+
+

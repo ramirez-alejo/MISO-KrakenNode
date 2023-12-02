@@ -8,7 +8,7 @@ const chalk = require('chalk');
 
 
 const featuresPerWeek = new Map([
-    ['1', [ '1user.feature', '2user.feature', '3user.feature']],
+    ['1', [ '1user.feature', '2user.feature', '3user.feature', '1dashboard.feature', '17post.feature']],
 ])
 
 const getFeatureFilePaths = async (dir, paths = []) => {

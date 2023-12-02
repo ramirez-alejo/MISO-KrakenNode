@@ -134,7 +134,7 @@ class Post extends GhostPage {
 
   async createDraftPost(title, content) {
     await this.draftPostCreation(title, content);
-    await this.goBackToPostsList();
+    await this.goBackToPostList();
   }
 
   async selectPostFromPostsList(title) {
@@ -181,12 +181,12 @@ class Post extends GhostPage {
 
   async createPost(title, content) {
 
-    await this.selectPostFromPostsList(title);
+    await this.createDraftPost(title, content);
 
     await this.previewPost();
 
     // We need a little wait here to make sure the button is clickable
-    await this.driver.pause(1000);
+    await this.driver.pause(3000);
     await this.publishPostPreview();
 
     await this.continuePostPublication();
@@ -435,6 +435,26 @@ class Post extends GhostPage {
     );
     await removeElement.waitForDisplayed(15000);
     await removeElement.click();
+  }
+
+  async checkPostHistory(title) {
+    await this.openSettingsMenu(title);
+    
+    let element = await this.driver.$('[data-test-toggle="post-history"]');
+    await element.waitForDisplayed(15000);
+    await element.click();
+
+    //shoudl show an ul with class class="nav-list"
+    element = await this.driver.$('[class="nav-list"]');
+    await element.waitForDisplayed(15000);
+
+
+    //should have more than 1 li with class class="nav-list-item"
+    let elements = await this.driver.$$('.nav-list-item');
+    await elements[0].waitForDisplayed(15000);
+    expect(elements.length).to.be.greaterThan(1);
+
+
   }
 
 
