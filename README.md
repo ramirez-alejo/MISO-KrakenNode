@@ -1,8 +1,11 @@
 # MISO-Proyecto Pruebas automatizadas Grupo 16
 
-| :exclamation:  Pruebas automatizadas Semana 1 entrega final en Kraken [Pruebas automatizadas semana 1 de la entrega final Kraken](https://github.com/ramirez-alejo/MISO-KrakenNode/wiki/Pruebas-automatizadas-semana-1-de-la-entrega-final-Kraken)   |
-|-----------------------------------------|
-|   La descripción de los escenarios de prueba por tipo de pool de datos se puede consultar en [Pruebas con pool de datos](https://github.com/ramirez-alejo/MISO-KrakenNode/wiki/Pruebas-con-pool-de-datos)   |
+> :exclamation:  Entrega Final
+>  - Estrategia de pruebas [Estrategia de pruebas](https://github.com/ramirez-alejo/MISO-KrakenNode/wiki/Estrategia-de-pruebas-Ghost)
+>  - Inventario de pruebas manuales [inventario pruebas manuales](https://github.com/ramirez-alejo/MISO-KrakenNode/wiki/Inventario-de-pruebas-exploratiorias)
+>  - Pruebas automatizadas [Pruebas automatizadas semana 1 de la entrega final Kraken](https://github.com/ramirez-alejo/MISO-KrakenNode/wiki/Pruebas-automatizadas-semana-1-de-la-entrega-final-Kraken)
+>  - Análisis de los pros/contras de las herramientas usadas [Análisis herramientas usadas](https://github.com/ramirez-alejo/MISO-KrakenNode/wiki/Pros-y-contras-Kraken-%E2%80%90-Cypress)
+>  - Video [Video Semana 8]()
 
 ## Participantes:
 - Luis Orjuela - l.orjuelag@uniandes.edu.co
