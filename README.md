@@ -5,7 +5,7 @@
 >  - Inventario de pruebas manuales [Inventario pruebas manuales](https://github.com/ramirez-alejo/MISO-KrakenNode/wiki/Inventario-de-pruebas-exploratiorias)
 >  - Pruebas automatizadas [Pruebas automatizadas semana 1 de la entrega final Kraken](https://github.com/ramirez-alejo/MISO-KrakenNode/wiki/Pruebas-automatizadas-semana-1-de-la-entrega-final-Kraken)
 >  - Análisis de los pros/contras de las herramientas usadas [Análisis herramientas usadas](https://github.com/ramirez-alejo/MISO-KrakenNode/wiki/Pros-y-contras-Kraken-%E2%80%90-Cypress)
->  - Video [Video Semana 8]()
+>  - Video [Video Semana 8](https://youtu.be/G-vSof7-d3M)
 
 ## Participantes:
 - Luis Orjuela - l.orjuelag@uniandes.edu.co
